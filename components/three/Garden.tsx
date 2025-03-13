@@ -295,7 +295,7 @@ const Scene: React.FC = () => {
   const [data, setData] = useState<PlantData[]>([]);
   const [id, setId] = useState(0);
   useEffect(() => {
-    fetch("dataset/user.json")
+    fetch("dataset/garden.json")
       .then((res) => res.json())
       .then((json) => setData(json));
   }, []);
