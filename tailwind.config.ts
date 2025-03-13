@@ -12,6 +12,10 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      fontFamily: {
+        sans: ["var(--font-dm-sans)", "sans-serif"], // Use DM Sans as the default sans-serif font
+      }
+
     },
   },
   plugins: [],
