@@ -60,9 +60,18 @@ export const ProgressBar = ({ progress = 70 }) => {
         </div>
 
         {/* Milestone lines */}
-        <div className="absolute left-0 w-full h-0.5 bg-black" style={{ top: "25%" }} />
-        <div className="absolute left-0 w-full h-0.5 bg-black" style={{ top: "50%" }} />
-        <div className="absolute left-0 w-full h-0.5 bg-black" style={{ top: "75%" }} />
+        <div
+          className="absolute left-0 w-full h-0.5 bg-black"
+          style={{ top: "25%" }}
+        />
+        <div
+          className="absolute left-0 w-full h-0.5 bg-black"
+          style={{ top: "50%" }}
+        />
+        <div
+          className="absolute left-0 w-full h-0.5 bg-black"
+          style={{ top: "75%" }}
+        />
       </div>
     </div>
   );

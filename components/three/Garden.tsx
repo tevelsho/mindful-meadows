@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useMemo, useState } from "react";
+import React, { useRef, useMemo, useState, useEffect } from "react";
 import { Canvas, useFrame, extend, useThree } from "@react-three/fiber";
 import { OrbitControls, useTexture, Html } from "@react-three/drei";
 import * as THREE from "three";
@@ -187,7 +187,7 @@ function Flower({
   );
 
   // Scale based on health
-  const flowerScale = 0.2 * (0.7 + 0.3 * plantHealth);
+  const flowerScale = 0.19;
   const petalScale = 0.6 * (0.8 + 0.2 * plantHealth);
 
   // Animate based on health
@@ -219,8 +219,8 @@ function Flower({
       }}
     >
       {/* Flower stem */}
-      <mesh position={[0, -1, 0]} castShadow receiveShadow>
-        <cylinderGeometry args={[0.1, 0.1, 2, 8]} />
+      <mesh position={[0, -1.8, 0]} castShadow receiveShadow>
+        <cylinderGeometry args={[0.1, 0.1, 3, 8]} />
         <meshStandardMaterial color={stemColor.getHex()} />
       </mesh>
       {/* Flower center */}
@@ -274,14 +274,26 @@ function Flower({
     </group>
   );
 }
+interface PlantData {
+  id: number;
+  name: string;
+  plant_health: number;
+  xy: [number, number];
+}
+
 // Main Scene
 const Scene: React.FC = () => {
-  let data = fetch("dataset/user.json").then((response) => response.json());
+  const [data, setData] = useState<PlantData[]>([]);
+  useEffect(() => {
+    fetch("dataset/user.json")
+      .then((res) => res.json())
+      .then((json) => setData(json));
+  }, []);
 
   return (
     <Canvas
       shadows
-      camera={{ position: [5, 3, 5], fov: 55 }}
+      camera={{ position: [-5, 3, 5], fov: 55 }}
       style={{ background: "transparent" }}
     >
       <ambientLight intensity={0.5} />
@@ -300,15 +312,23 @@ const Scene: React.FC = () => {
         grassColor="#9FCE41"
         dirtColor="#80642E"
       />
-
       <Flower
         onClick={() => alert("test")}
         name="Tevel"
-        pos={[1.5, 0.4, 1.5]}
+        pos={[-2.5, 0.4, -2.5]}
         id={0}
         plantHealth={0.1}
       />
-
+      {data.map((item) => (
+        <Flower
+          key={item.id}
+          onClick={() => alert(item.name)}
+          name={item.name}
+          pos={[item.xy[0], 0.4, item.xy[1]]}
+          id={item.id}
+          plantHealth={item.plant_health}
+        />
+      ))}
       {/* Grid */}
       <Grid size={6} divisions={6} color="#4a5568" opacity={0.3} />
       {/* Improved Grass */}
