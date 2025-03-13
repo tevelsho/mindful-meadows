@@ -3,6 +3,7 @@ import React, { useRef, useMemo, useState, useEffect } from "react";
 import { Canvas, useFrame, extend, useThree } from "@react-three/fiber";
 import { OrbitControls, useTexture, Html } from "@react-three/drei";
 import * as THREE from "three";
+import GardenModal from "../modals/GardenModal";
 
 // Types
 interface GridProps {
@@ -87,9 +88,7 @@ const GrassField: React.FC = () => {
   const instancedMeshRef = useRef<THREE.InstancedMesh>(null);
   const bladeCount = 3000;
 
-  // Create a variety of grass blades
-  const grassBlade = useMemo(() => {
-    // Create a simple triangle shape for grass
+  const grassBladeGeometry = useMemo(() => {
     const shape = new THREE.Shape();
     shape.moveTo(0, 0);
     shape.lineTo(-0.025, 0.2);
@@ -105,7 +104,13 @@ const GrassField: React.FC = () => {
     return new THREE.ExtrudeGeometry(shape, extrudeSettings);
   }, []);
 
-  // Set up the grass blades on component mount
+  const grassMaterial = useMemo(() => {
+    return new THREE.MeshStandardMaterial({
+      color: "#9FCE41",
+      side: THREE.DoubleSide,
+    });
+  }, []);
+
   React.useEffect(() => {
     if (!instancedMeshRef.current) return;
 
@@ -116,15 +121,13 @@ const GrassField: React.FC = () => {
     const quaternion = new THREE.Quaternion();
     const scale = new THREE.Vector3();
 
-    // Place grass blades randomly within the 6x6 grid
     for (let i = 0; i < bladeCount; i++) {
       position.set(
         (Math.random() - 0.5) * 5.8,
         0.02,
         (Math.random() - 0.5) * 5.8
-      ); // Slightly above the grass patch
+      );
 
-      // Random rotation for diversity
       rotation.set(
         Math.random() * 0.3,
         Math.random() * Math.PI * 2,
@@ -132,7 +135,6 @@ const GrassField: React.FC = () => {
       );
       quaternion.setFromEuler(rotation);
 
-      // Random scale for diversity
       const height = 0.1 + Math.random() * 0.2;
       scale.set(0.7 + Math.random() * 0.6, height, 1);
 
@@ -141,30 +143,36 @@ const GrassField: React.FC = () => {
     }
 
     mesh.instanceMatrix.needsUpdate = true;
+
+    return () => {
+      mesh.instanceMatrix.needsUpdate = false;
+    };
   }, [bladeCount]);
 
   return (
     <instancedMesh
       ref={instancedMeshRef}
-      args={[grassBlade, new THREE.MeshStandardMaterial(), bladeCount]}
+      args={[grassBladeGeometry, grassMaterial, bladeCount]}
       castShadow
-    >
-      <meshStandardMaterial color="#9FCE41" side={THREE.DoubleSide} />
-    </instancedMesh>
+    />
   );
 };
+
+const MemoizedGrassField = React.memo(GrassField);
 function Flower({
   onClick,
   name,
   pos,
   id,
   plantHealth,
+  openModal,
 }: {
   onClick: () => void;
   name: string;
   pos: [number, number, number];
   id: number;
   plantHealth: number;
+  openModal?: () => void;
 }) {
   const [hovered, setHovered] = useState(false);
   const flowerRef = useRef<THREE.Group>(null);
@@ -283,7 +291,9 @@ interface PlantData {
 
 // Main Scene
 const Scene: React.FC = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const [data, setData] = useState<PlantData[]>([]);
+  const [id, setId] = useState(0);
   useEffect(() => {
     fetch("dataset/user.json")
       .then((res) => res.json())
@@ -291,59 +301,69 @@ const Scene: React.FC = () => {
   }, []);
 
   return (
-    <Canvas
-      shadows
-      camera={{ position: [-5, 3, 5], fov: 55 }}
-      style={{ background: "transparent" }}
-    >
-      <ambientLight intensity={0.5} />
-      <directionalLight
-        position={[10, 10, 5]}
-        intensity={1}
-        castShadow
-        shadow-mapSize-width={2048}
-        shadow-mapSize-height={2048}
-      />
-      {/* Terrain with thickness and grass patch */}
-      <Terrain
-        width={6}
-        height={6}
-        thickness={0.3}
-        grassColor="#9FCE41"
-        dirtColor="#80642E"
-      />
-      <Flower
-        onClick={() => alert("test")}
-        name="Tevel"
-        pos={[-2.5, 0.4, -2.5]}
-        id={0}
-        plantHealth={0.1}
-      />
-      {data.map((item) => (
-        <Flower
-          key={item.id}
-          onClick={() => alert(item.name)}
-          name={item.name}
-          pos={[item.xy[0], 0.4, item.xy[1]]}
-          id={item.id}
-          plantHealth={item.plant_health}
+    <>
+      <Canvas
+        shadows
+        camera={{ position: [-5, 3, 5], fov: 55 }}
+        style={{ background: "transparent" }}
+      >
+        <ambientLight intensity={0.5} />
+        <directionalLight
+          position={[10, 10, 5]}
+          intensity={1}
+          castShadow
+          shadow-mapSize-width={2048}
+          shadow-mapSize-height={2048}
         />
-      ))}
-      {/* Grid */}
-      <Grid size={6} divisions={6} color="#4a5568" opacity={0.3} />
-      {/* Improved Grass */}
-      <GrassField />
-      {/* Grid Axis Helper */}
-      {/* <axesHelper args={[5]} /> */}
-      {/* Controls */}
-      <OrbitControls
-        enableDamping
-        dampingFactor={0.05}
-        minDistance={3}
-        maxDistance={10}
-        maxPolarAngle={Math.PI / 2.1} // Prevent going below the ground
-      />
-    </Canvas>
+        {/* Terrain with thickness and grass patch */}
+        <Terrain
+          width={6}
+          height={6}
+          thickness={0.3}
+          grassColor="#9FCE41"
+          dirtColor="#80642E"
+        />
+        {/* <Flower
+          onClick={() => alert("test")}
+          name="Tevel"
+          pos={[-2.5, 0.4, -2.5]}
+          id={0}
+          plantHealth={0.1}
+        /> */}
+        {data.map((item) => (
+          <Flower
+            key={item.id}
+            onClick={() => {
+              setIsOpen(true);
+              setId(item.id);
+            }}
+            name={item.name}
+            pos={[item.xy[0], 0.4, item.xy[1]]}
+            id={item.id}
+            plantHealth={item.plant_health}
+          />
+        ))}
+        {/* Grid */}
+        <Grid size={6} divisions={6} color="#4a5568" opacity={0.3} />
+        {/* Improved Grass */}
+        <MemoizedGrassField />
+        {/* Grid Axis Helper */}
+        {/* <axesHelper args={[5]} /> */}
+        {/* Controls */}
+        <OrbitControls
+          enableDamping
+          dampingFactor={0.05}
+          minDistance={3}
+          maxDistance={10}
+          maxPolarAngle={Math.PI / 2.1} // Prevent going below the ground
+        />
+      </Canvas>
+      <GardenModal
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        id={id}
+      ></GardenModal>
+    </>
   );
 };
 

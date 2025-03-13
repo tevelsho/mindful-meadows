@@ -27,6 +27,7 @@ export const Sidebar = () => {
         justify-center
         p-12
         z-50
+        font-sans
       "
     >
       <aside
@@ -61,7 +62,10 @@ export const Sidebar = () => {
                 shadow-[4px_4px_0_0_rgba(0,0,0,1)]
               `}
             >
-              <Link href={item.href} className="flex items-center no-underline text-black">
+              <Link
+                href={item.href}
+                className="flex items-center no-underline text-black"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"

@@ -13,6 +13,7 @@ export const ProgressBar = ({ progress = 70 }) => {
         items-center
         z-50
         p-12
+        font-sans
       "
     >
       <div
