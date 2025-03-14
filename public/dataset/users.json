@@ -1,0 +1,62 @@
+[
+    {
+        "id": 1,
+        "name": "John",
+        "emotions": ["frustration", "disappointment"],
+        "summary": "John recently received negative feedback on his research paper. He feels frustrated and disappointed, as he had put in a lot of effort."
+    },
+    {
+        "id": 2,
+        "name": "Alice",
+        "emotions": ["anxiety", "self-doubt"],
+        "summary": "Alice is struggling with an important presentation at work. She feels anxious and full of self-doubt, fearing that she might fail."
+    },
+    {
+        "id": 3,
+        "name": "Michael",
+        "emotions": ["stress", "exhaustion"],
+        "summary": "Michael has been working overtime for weeks without rest. He feels stressed and exhausted, unable to find time for himself."
+    },
+    {
+        "id": 4,
+        "name": "Sarah",
+        "emotions": ["loneliness", "sadness"],
+        "summary": "Sarah recently moved to a new city where she knows no one. She feels lonely and sad, missing her old friends and family."
+    },
+    {
+        "id": 5,
+        "name": "David",
+        "emotions": ["resentment", "irritation"],
+        "summary": "David's colleague took credit for his idea during a meeting. He feels resentment and irritation at the unfairness of the situation."
+    },
+    {
+        "id": 6,
+        "name": "Emma",
+        "emotions": ["guilt", "shame"],
+        "summary": "Emma made a mistake on a group project that cost her team a high grade. She feels guilt and shame, regretting her actions."
+    },
+    {
+        "id": 7,
+        "name": "James",
+        "emotions": ["anger", "betrayal"],
+        "summary": "James just found out that his best friend shared his secret. He feels angry and betrayed, questioning their friendship."
+    },
+    {
+        "id": 8,
+        "name": "Olivia",
+        "emotions": ["hopelessness", "discouragement"],
+        "summary": "Olivia has been job hunting for months with no success. She feels hopeless and discouraged, wondering if she will ever find a good opportunity."
+    },
+    {
+        "id": 9,
+        "name": "Daniel",
+        "emotions": ["frustration", "regret"],
+        "summary": "Daniel turned down a great opportunity because of fear. He now feels frustration and regret, thinking about what could have been."
+    },
+    {
+        "id": 10,
+        "name": "Sophia",
+        "emotions": ["disappointment", "worry"],
+        "summary": "Sophia trained hard for a competition but didn't place well. She feels disappointed and worried about her future prospects."
+    }
+]
