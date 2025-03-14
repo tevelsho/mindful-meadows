@@ -4,6 +4,7 @@ import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { ProgressBar} from "@/components/layout/Progressbar";
+import { Volume } from "@/components/Volume";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,6 +40,7 @@ export default function RootLayout({
         <Sidebar />
         <ProgressBar />
         {children}
+        <Volume />
       </body>
     </html>
   );
