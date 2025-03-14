@@ -6,17 +6,12 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
 import { KTX2Loader } from "three/examples/jsm/loaders/KTX2Loader.js";
 import { MeshoptDecoder } from "three/examples/jsm/libs/meshopt_decoder.module.js";
-import { useGLTFWithKTX2 } from "./useGLTFWithKTX2";
-import { convertMaterialsToBasic } from "./convertToBasic";
 import * as THREE from "three";
 
 export default function PersonalRoom() {
   // Load the couch model (couch.glb)
   const couch = useLoader(GLTFLoader, "/models/couch.glb"); // Load the image texture
-  const texture = useLoader(
-    THREE.TextureLoader,
-    "Screenshot 2024-10-14 000652.png"
-  );
+  const texture = useLoader(THREE.TextureLoader, "temp_ngeeann.png");
 
   // Load both GLB files
   const gltfMain = useLoader(
