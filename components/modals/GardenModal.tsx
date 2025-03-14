@@ -1,125 +1,176 @@
 "use client";
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence, Variants } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+
+const iconMappings: Record<string, React.ReactNode> = {
+  frustration: (
+    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="#FF6961">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M17 3.34a10 10 0 1 1 -14.995 8.984l-.005 -.324l.005 -.324a10 10 0 0 1 14.995 -8.336zm-5 9.86a4.5 4.5 0 0 0 -3.214 1.35a1 1 0 1 0 1.428 1.4a2.5 2.5 0 0 1 3.572 0a1 1 0 0 0 1.428 -1.4a4.5 4.5 0 0 0 -3.214 -1.35zm-2.99 -4.2l-.127 .007a1 1 0 0 0 0 1.986l.117 .007l.127 -.007a1 1 0 0 0 0 -1.986l-.117 -.007zm6 0l-.127 .007a1 1 0 0 0 0 1.986l.117 .007l.127 -.007a1 1 0 0 0 0 -1.986l-.117 -.007z" />
+    </svg>
+  ),
+  sadness: (
+    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="#AEC6CF">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 2c5.523 0 10 4.477 10 10s-4.477 10 -10 10a10 10 0 1 1 0 -20m3.707 12.293a1 1 0 0 0 -1.262 -.125l-.945 .63l-.945 -.63l-.116 -.066a1 1 0 0 0 -.994 .066l-.945 .63l-.945 -.63a1 1 0 0 0 -1.262 .125l-1 1a1 1 0 0 0 0 1.414l.094 .083a1 1 0 0 0 1.32 -.083l.42 -.42l.818 .545l.116 .066a1 1 0 0 0 .994 -.066l.945 -.63l.945 .63l.116 .066a1 1 0 0 0 .994 -.066l.817 -.545l.42 .42a1 1 0 0 0 1.415 -1.414z" />
+    </svg>
+  ),
+  exhaustion: (
+    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="#AEC6CF">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 2c5.523 0 10 4.477 10 10s-4.477 10 -10 10a10 10 0 1 1 0 -20m2.5 13l-1.5 -1.5l-1.5 1.5m3 -6h-4m2 0v2m2 -4h-6m2 0v2" />
+    </svg>
+  ),
+};
 
 export default function GardenModal({
   isOpen,
   onClose,
-  children,
   id,
 }: {
   isOpen: boolean;
   onClose: () => void;
-  children?: React.ReactNode;
   id: number;
 }) {
-  let [userName, setUserName] = useState("");
-  let [userEmotion, setUserEmotion] = useState([]);
-  let [userSummary, setUserSummary] = useState("");
+  const [userName, setUserName] = useState("");
+  const [userEmotions, setUserEmotions] = useState<string[]>([]);
+  const [userSummary, setUserSummary] = useState("");
 
   useEffect(() => {
     fetch("dataset/users.json")
       .then((res) => res.json())
-      .then(
-        (
-          json: {
-            id: number;
-            name: string;
-            emotions: [];
-            summary: string;
-          }[]
-        ) => {
-          json.forEach((user) => {
-            if (user.id === id) {
-              setUserName(user.name);
-              setUserEmotion(user.emotions);
-              setUserSummary(user.summary);
-              console.log(user.name);
-            }
-          });
-        }
-      );
+      .then((json: { id: number; name: string; emotions: string[]; summary: string }[]) => {
+        json.forEach((user) => {
+          if (user.id === id) {
+            setUserName(user.name);
+            setUserEmotions(user.emotions);
+            setUserSummary(user.summary);
+          }
+        });
+      });
 
-    if (isOpen) {
-      document.body.style.overflow = "hidden"; // Prevent scrolling when modal is open
-    } else {
-      document.body.style.overflow = "auto";
-    }
+    document.body.style.overflow = isOpen ? "hidden" : "auto";
   }, [isOpen]);
-  const modalVariants: Variants = {
-    initial: {
-      opacity: 0,
-      scale: 0.9,
-      filter: "blur(10px)", // Start with blur
-      zIndex: -1,
-      rotateY: 90, // Rotate the modal on the Y-axis
-      transformOrigin: "center", // Ensure the rotation happens from the center
-    },
-    animate: {
-      opacity: 1,
-      scale: 1,
-      filter: "blur(0px)", // Remove blur
-      zIndex: 10,
-      rotateY: 0, // No rotation when fully visible
-      transition: {
-        duration: 0.3, // Faster animation
-        ease: "easeOut",
-      },
-    },
-    exit: {
-      opacity: 0,
-      scale: 0.9,
-      filter: "blur(10px)", // Add blur on exit
-      rotateY: -90, // Exit with counterclockwise rotation
-      zIndex: -1,
-      transition: {
-        duration: 0.2, // Faster exit
-        ease: "easeIn",
-      },
-    },
-  };
+
+  const progressValues = userEmotions.reduce<{ [key: string]: number }>((acc, emotion) => {
+    acc[emotion] = Math.floor(Math.random() * 100) + 1;
+    return acc;
+  }, {});
 
   return (
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          initial={{ opacity: 0 }} // Fade-in effect
+          initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3, ease: "easeInOut" }}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-white/50 backdrop-blur-lg"
-          onClick={onClose} // Close when clicking the background
+          className="fixed inset-0 z-50 flex items-center justify-center bg-white/60 backdrop-blur-lg"
+          onClick={onClose}
         >
           <motion.div
-            initial="initial"
-            animate="animate"
-            exit="exit"
-            variants={modalVariants}
-            className="relative w-[90%] md:w-4/5 h-1/2 p-4 md:p-12 bg-gray-100 rounded-2xl shadow-xl border-[1px] border-border overflow-scroll border-black font-sans flex flex-col"
-            onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside the modal
+            initial={{ opacity: 0, scale: 0.9, rotateY: 90 }}
+            animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+            exit={{ opacity: 0, scale: 0.9, rotateY: -90 }}
+            transition={{ duration: 0.3, ease: "easeOut" }}
+            className="
+              relative
+              w-[75%]
+              md:w-2/5
+              h-auto
+              p-6
+              md:p-8
+              bg-yellow-200
+              border-4
+              border-black
+              shadow-[4px_4px_0_0_rgba(0,0,0,1)]
+              rounded-2xl
+              font-sans
+              flex
+              flex-col
+              text-left
+            "
+            onClick={(e) => e.stopPropagation()}
           >
-            <button onClick={onClose} className="absolute top-6 right-8">
-              ✕
+            {/* Close Button */}
+            <button
+              onClick={onClose}
+              className="
+                absolute
+                top-4
+                right-4
+                p-2
+                bg-purple-200
+                rounded-md
+                border-2
+                border-black
+                shadow-[2px_2px_0_0_rgba(0,0,0,1)]
+              "
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="black"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M18 6l-12 12" />
+                <path d="M6 6l12 12" />
+              </svg>
             </button>
-            <div className="flex flex-row">
-              <div className="w-7/12 flex-grow">
-                <h2 className="font-bold text-3xl">{userName}</h2>
-                <h3 className="pb-12">Choir's CCA Community Garden</h3>
-                <h3 className="underline text-xl pb-4">{`${userName} is feeling ${userEmotion}`}</h3>
-                <div>
-                  <p className="text-lg">{userSummary}</p>
-                  <p className="text-right italic text-sm">
-                    AI Generated Summary <br /> User chose to share
-                  </p>
+
+            {/* User Name */}
+            <h2 className="font-bold text-3xl text-black pb-4">{userName}</h2>
+            <p className="pb-6 text-gray-800">{userSummary}</p>
+
+            {/* Emotion Progress Bars */}
+            <div className="space-y-6 w-full">
+              {userEmotions.map((emotion, index) => (
+                <div key={index} className="flex flex-col space-y-2">
+                  {/* Emotion Label */}
+                  <span className="font-semibold text-black text-sm uppercase tracking-wide">
+                    {emotion}
+                  </span>
+                  <div className="flex items-center space-x-4">
+                    <div className="w-12 h-12 flex items-center justify-center border-2 border-black bg-white rounded-lg shadow-[2px_2px_0_0_rgba(0,0,0,1)]">
+                      {iconMappings[emotion] || iconMappings["frustration"]}
+                    </div>
+                    <div className="w-3/4 bg-white border-2 border-black rounded-lg shadow-[2px_2px_0_0_rgba(0,0,0,1)]">
+                      <div
+                        className="h-6 bg-pink-200 rounded-lg"
+                        style={{ width: `${progressValues[emotion]}%` }}
+                      ></div>
+                    </div>
+                  </div>
                 </div>
-              </div>
-              <div className="w-5/12 flex flex-col items-center justify-center">
-                flower placeholder
-              </div>
+              ))}
             </div>
-            <div className="mt-auto">
-              <button className="px-8 py-4 bg-blue-500 text-white rounded-lg">
-                This button to be neobrutalised
+
+            <div className="mt-8 flex flex-col items-start">
+              <button
+                className="
+                  px-5
+                  py-3
+                  bg-gray-400
+                  text-white
+                  border-2
+                  text-left
+                  border-black
+                  rounded-md
+                  shadow-[2px_2px_0_0_rgba(0,0,0,1)]
+                  hover:scale-105
+                  transition-transform
+                "
+              >
+                Water {userName}'s flower
+                <p className="text-xs text-gray-700">
+                Write an encouraging message
+              </p>
               </button>
             </div>
           </motion.div>

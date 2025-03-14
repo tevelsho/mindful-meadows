@@ -1,12 +1,11 @@
 import PersonalRoom from "@/components/three/PersonalRoom";
-import React from "react";
 
-const RoomPage = () => {
+export default function Room() {
   return (
-    <div className="flex flex-col items-center justify-center h-screen">
-      <PersonalRoom></PersonalRoom>
+    <div className="flex-1 w-screen">
+      <div className="h-full flex flex-row">
+        <PersonalRoom></PersonalRoom>
+      </div>
     </div>
   );
-};
-
-export default RoomPage;
+}

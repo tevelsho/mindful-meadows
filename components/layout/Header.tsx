@@ -30,7 +30,7 @@ export const Header = () => {
       </h2>
       <nav className="flex flex-row items-center font-sans text-lg gap-4">
         <Link
-          href="/home"   
+          href="/rewards"   
           className="
             no-underline
             text-black
@@ -40,7 +40,7 @@ export const Header = () => {
             rounded-md
             px-3
             py-1
-            shadow-[4px_4px_0_0_rgba(0,0,0,1)]
+            shadow-[2px_2px_0_0_rgba(0,0,0,1)]
           "
         >
           <svg
@@ -66,7 +66,7 @@ export const Header = () => {
             rounded-md
             px-3
             py-1
-            shadow-[4px_4px_0_0_rgba(0,0,0,1)]
+            shadow-[2px_2px_0_0_rgba(0,0,0,1)]
           "
         >
           <svg
