@@ -82,6 +82,51 @@ const Terrain: React.FC<TerrainProps> = ({
     </group>
   );
 };
+const Fence: React.FC<{
+  position: [number, number, number];
+  rotation?: [number, number, number];
+}> = ({ position, rotation = [0, 0, 0] }) => {
+  return (
+    <group position={position} rotation={rotation}>
+      {/* Left post */}
+      <mesh castShadow receiveShadow position={[-2.75, 0, 0]}>
+        <boxGeometry args={[0.25, 2, 0.25]} />
+        <meshStandardMaterial color="#FFFFFF" roughness={0.7} />
+      </mesh>
+
+      {/* Right post */}
+      <mesh castShadow receiveShadow position={[2.75, 0, 0]}>
+        <boxGeometry args={[0.25, 2, 0.25]} />
+        <meshStandardMaterial color="#FFFFFF" roughness={0.7} />
+      </mesh>
+
+      {/* Top rail */}
+      <mesh castShadow receiveShadow position={[0, 0.7, 0]}>
+        <boxGeometry args={[6, 0.15, 0.1]} />
+        <meshStandardMaterial color="#FFFFFF" roughness={0.7} />
+      </mesh>
+
+      {/* Bottom rail */}
+      <mesh castShadow receiveShadow position={[0, -0.2, 0]}>
+        <boxGeometry args={[6, 0.15, 0.1]} />
+        <meshStandardMaterial color="#FFFFFF" roughness={0.7} />
+      </mesh>
+
+      {/* Vertical pickets */}
+      {Array.from({ length: 16 }).map((_, i) => (
+        <mesh
+          key={`picket-${i}`}
+          castShadow
+          receiveShadow
+          position={[-2.6 + i * 0.35, 0.12, 0]}
+        >
+          <boxGeometry args={[0.1, 1.8, 0.08]} />
+          <meshStandardMaterial color="#FFFFFF" roughness={0.7} />
+        </mesh>
+      ))}
+    </group>
+  );
+};
 
 // Improved grass using instanced meshes
 const GrassField: React.FC = () => {
@@ -357,6 +402,9 @@ const Scene: React.FC = () => {
           maxDistance={10}
           maxPolarAngle={Math.PI / 2.1} // Prevent going below the ground
         />
+        <Fence position={[0, 0.5, -3]} /> {/* Back fence */}
+        <Fence position={[3, 0.5, 0]} rotation={[0, Math.PI / 2, 0]} />{" "}
+        {/* Left fence */}
       </Canvas>
       <GardenModal
         isOpen={isOpen}
