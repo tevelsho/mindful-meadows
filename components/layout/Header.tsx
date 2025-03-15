@@ -1,9 +1,9 @@
-import React from "react"
-import Link from "next/link"
+import React from "react";
+import Link from "next/link";
 
 export const Header = () => {
   return (
-    <section className="flex flex-row justify-between p-12">
+    <section className="flex flex-row justify-between p-12 z-10 fixed w-full">
       <h2 className="flex items-center font-sans font-bold text-3xl text-amber-900">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -30,7 +30,7 @@ export const Header = () => {
       </h2>
       <nav className="flex flex-row items-center font-sans text-lg gap-4">
         <Link
-          href="/rewards"   
+          href="/rewards"
           className="
             no-underline
             text-black
@@ -83,7 +83,5 @@ export const Header = () => {
         </Link>
       </nav>
     </section>
-  )
-}
-
-
+  );
+};
