@@ -17,3 +17,34 @@ body {
   margin: 0;
   padding: 0;
 }
+
+.bg-grid {
+  background-image: url("/grid.png"),
+    radial-gradient(
+      38.57% 51.42% at 50% 10%,
+      hsla(30, 45%, 96%, 0.5) 0%,
+      #f9f4ef 100%
+    );
+
+  background-repeat: repeat;
+  background-size: cover;
+}
+
+/* globals.css */
+
+.bg-lined-paper {
+  /* Light off-white base */
+  background-color: #fafafa;
+
+  /* Repeating horizontal lines every 28px */
+  background-image: 
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0px,
+      transparent 27px,
+      rgba(160, 160, 160, 0.3) 28px
+    );
+  
+  /* Adjust this for tighter or looser lines */
+  background-size: 100% 28px;
+}
