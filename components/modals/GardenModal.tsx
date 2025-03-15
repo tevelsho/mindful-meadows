@@ -4,19 +4,19 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const iconMappings: Record<string, React.ReactNode> = {
   frustration: (
-    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="#FF6961">
+    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="#FECACA">
       <path stroke="none" d="M0 0h24v24H0z" fill="none" />
       <path d="M17 3.34a10 10 0 1 1 -14.995 8.984l-.005 -.324l.005 -.324a10 10 0 0 1 14.995 -8.336zm-5 9.86a4.5 4.5 0 0 0 -3.214 1.35a1 1 0 1 0 1.428 1.4a2.5 2.5 0 0 1 3.572 0a1 1 0 0 0 1.428 -1.4a4.5 4.5 0 0 0 -3.214 -1.35zm-2.99 -4.2l-.127 .007a1 1 0 0 0 0 1.986l.117 .007l.127 -.007a1 1 0 0 0 0 -1.986l-.117 -.007zm6 0l-.127 .007a1 1 0 0 0 0 1.986l.117 .007l.127 -.007a1 1 0 0 0 0 -1.986l-.117 -.007z" />
     </svg>
   ),
   sadness: (
-    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="#AEC6CF">
+    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="#A5B4FC">
       <path stroke="none" d="M0 0h24v24H0z" fill="none" />
       <path d="M12 2c5.523 0 10 4.477 10 10s-4.477 10 -10 10a10 10 0 1 1 0 -20m3.707 12.293a1 1 0 0 0 -1.262 -.125l-.945 .63l-.945 -.63l-.116 -.066a1 1 0 0 0 -.994 .066l-.945 .63l-.945 -.63a1 1 0 0 0 -1.262 .125l-1 1a1 1 0 0 0 0 1.414l.094 .083a1 1 0 0 0 1.32 -.083l.42 -.42l.818 .545l.116 .066a1 1 0 0 0 .994 -.066l.945 -.63l.945 .63l.116 .066a1 1 0 0 0 .994 -.066l.817 -.545l.42 .42a1 1 0 0 0 1.415 -1.414z" />
     </svg>
   ),
   exhaustion: (
-    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="#AEC6CF">
+    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="#FDE68A">
       <path stroke="none" d="M0 0h24v24H0z" fill="none" />
       <path d="M12 2c5.523 0 10 4.477 10 10s-4.477 10 -10 10a10 10 0 1 1 0 -20m2.5 13l-1.5 -1.5l-1.5 1.5m3 -6h-4m2 0v2m2 -4h-6m2 0v2" />
     </svg>
@@ -50,8 +50,9 @@ export default function GardenModal({
       });
 
     document.body.style.overflow = isOpen ? "hidden" : "auto";
-  }, [isOpen]);
+  }, [isOpen, id]);
 
+  // Create random progress values for each emotion
   const progressValues = userEmotions.reduce<{ [key: string]: number }>((acc, emotion) => {
     acc[emotion] = Math.floor(Math.random() * 100) + 1;
     return acc;
@@ -80,10 +81,10 @@ export default function GardenModal({
               h-auto
               p-6
               md:p-8
-              bg-yellow-200
+              bg-pink-100 
               border-4
               border-black
-              shadow-[4px_4px_0_0_rgba(0,0,0,1)]
+              shadow-[2px_2px_0_0_rgba(0,0,0,1)]
               rounded-2xl
               font-sans
               flex
@@ -142,7 +143,7 @@ export default function GardenModal({
                     </div>
                     <div className="w-3/4 bg-white border-2 border-black rounded-lg shadow-[2px_2px_0_0_rgba(0,0,0,1)]">
                       <div
-                        className="h-6 bg-pink-200 rounded-lg"
+                        className="h-6 bg-blue-200 rounded-lg"
                         style={{ width: `${progressValues[emotion]}%` }}
                       ></div>
                     </div>
@@ -151,15 +152,15 @@ export default function GardenModal({
               ))}
             </div>
 
+            {/* Water Flower Button */}
             <div className="mt-8 flex flex-col items-start">
               <button
                 className="
                   px-5
                   py-3
-                  bg-gray-400
-                  text-white
+                  bg-green-200
+                  text-black
                   border-2
-                  text-left
                   border-black
                   rounded-md
                   shadow-[2px_2px_0_0_rgba(0,0,0,1)]
@@ -168,9 +169,7 @@ export default function GardenModal({
                 "
               >
                 Water {userName}'s flower
-                <p className="text-xs text-gray-700">
-                Write an encouraging message
-              </p>
+                <p className="text-xs text-gray-700">(Write an encouraging message)</p>
               </button>
             </div>
           </motion.div>

@@ -39,7 +39,7 @@ const links = [
   { href: "/", label: "Jing Shun", color: "bg-green-200", icon: homeIcon },
   { href: "/", label: "Javier", color: "bg-yellow-200", icon: homeIcon },
   { href: "/", label: "Shawn", color: "bg-purple-200", icon: homeIcon },
-  { href: "/", label: "Gabe", color: "bg-orange-200", icon: homeIcon },
+  { href: "/", label: "Gavin", color: "bg-orange-200", icon: homeIcon },
   { href: "/", label: "FP1", color: "bg-lime-200", icon: leafIcon },
   { href: "/", label: "FP2", color: "bg-teal-200", icon: leafIcon },
   { href: "/", label: "FP3", color: "bg-red-200", icon: leafIcon },

@@ -7,17 +7,17 @@ export const Volume = () => {
 
   return (
     <div
-      className="
+      onClick={() => setIsMuted(!isMuted)}
+      className={`
         fixed
         bottom-4
-        right-12
+        left-12
         cursor-pointer
         transition-transform
         duration-300
         transform
         no-underline
         text-black
-        bg-green-200
         border-2
         border-black
         rounded-md
@@ -25,13 +25,13 @@ export const Volume = () => {
         py-1
         shadow-[2px_2px_0_0_rgba(0,0,0,1)]
         hover:scale-105
-      "
-      onClick={() => setIsMuted(!isMuted)}
+        ${isMuted ? "bg-red-200" : "bg-blue-200"}
+      `}
     >
       {isMuted ? (
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="48"
+          width="32"
           height="48"
           viewBox="0 0 24 24"
           fill="none"
@@ -39,8 +39,10 @@ export const Volume = () => {
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="icon icon-tabler icons-tabler-outline icon-tabler-volume-off 
-          rotate-[25deg] scale-x-[-1]"
+          className="
+            icon icon-tabler icons-tabler-outline icon-tabler-volume-off
+            rotate-[-190deg] scale-x-[-1]
+          "
         >
           <path stroke="none" d="M0 0h24v24H0z" fill="none" />
           <path d="M15 8a5 5 0 0 1 1.912 4.934m-1.377 2.602a5 5 0 0 1 -.535 .464" />
@@ -51,7 +53,7 @@ export const Volume = () => {
       ) : (
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="48"
+          width="32"
           height="48"
           viewBox="0 0 24 24"
           fill="none"
@@ -59,8 +61,10 @@ export const Volume = () => {
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="icon icon-tabler icons-tabler-outline icon-tabler-volume
-          rotate-[25deg] scale-x-[-1]"
+          className="
+            icon icon-tabler icons-tabler-outline icon-tabler-volume
+            rotate-[-190deg] scale-x-[-1]
+          "
         >
           <path stroke="none" d="M0 0h24v24H0z" fill="none" />
           <path d="M15 8a5 5 0 0 1 0 8" />

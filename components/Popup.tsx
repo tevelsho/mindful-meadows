@@ -7,7 +7,6 @@ export default function Popup() {
   const [userInput, setUserInput] = useState("");
 
   useEffect(() => {
-    // Open the popup every time the page is loaded/refreshed
     setIsOpen(true);
   }, []);
 
@@ -50,7 +49,7 @@ export default function Popup() {
               flex-col
               text-left
             "
-            onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside the popup
+            onClick={(e) => e.stopPropagation()}
             initial={{ opacity: 0, scale: 0.9, rotateY: 90 }}
             animate={{ opacity: 1, scale: 1, rotateY: 0 }}
             exit={{ opacity: 0, scale: 0.9, rotateY: -90 }}
