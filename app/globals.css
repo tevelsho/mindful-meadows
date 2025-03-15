@@ -30,13 +30,8 @@ body {
   background-size: cover;
 }
 
-/* globals.css */
-
 .bg-lined-paper {
-  /* Light off-white base */
   background-color: #fafafa;
-
-  /* Repeating horizontal lines every 28px */
   background-image: 
     repeating-linear-gradient(
       to bottom,
@@ -44,7 +39,5 @@ body {
       transparent 27px,
       rgba(160, 160, 160, 0.3) 28px
     );
-  
-  /* Adjust this for tighter or looser lines */
   background-size: 100% 28px;
 }
