@@ -327,7 +327,7 @@ export default function GardenModal({
               />
 
               <img
-                src="/graphics/paper_plane.png"
+                src="/graphics/paper-plane.png"
                 alt="Paper Plane"
                 className="w-full h-auto"
               />

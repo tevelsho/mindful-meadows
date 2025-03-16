@@ -14,7 +14,7 @@ import RoomModal from "../modals/RoomModal";
 export default function PersonalRoom() {
   // Load the couch model (couch.glb)
   const couch = useLoader(GLTFLoader, "/models/couch.glb"); // Load the image texture
-  const texture = useLoader(THREE.TextureLoader, "temp_ngeeann.png");
+  const texture = useLoader(THREE.TextureLoader, "team.png");
 
   // Load both GLB files
   const gltfMain = useLoader(
