@@ -10,8 +10,9 @@ export const Volume = () => {
       onClick={() => setIsMuted(!isMuted)}
       className={`
         fixed
-        bottom-4
+        bottom-8
         left-12
+        z-50
         cursor-pointer
         transition-transform
         duration-300
@@ -20,7 +21,7 @@ export const Volume = () => {
         text-black
         border-2
         border-black
-        rounded-md
+        rounded-full
         px-3
         py-1
         shadow-[2px_2px_0_0_rgba(0,0,0,1)]

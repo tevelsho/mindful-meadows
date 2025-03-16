@@ -15,7 +15,9 @@
     "framer-motion": "^12.5.0",
     "next": "15.1.6",
     "react": "^19.0.0",
+    "react-audio-voice-recorder": "^2.2.0",
     "react-dom": "^19.0.0",
+    "react-media-recorder": "^1.7.1",
     "react-qr-code": "^2.0.15",
     "three": "^0.174.0"
   },
