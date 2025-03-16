@@ -343,17 +343,6 @@ interface PlantData {
   xy: [number, number];
 }
 
-const GroundFog: React.FC = () => {
-  return (
-    <Cloud
-      position={[0, -3.5, 0]} // Moves fog lower on screen
-      scale={[1, 1, 1]} // Wider fog, but thinner height
-      color="#e2eed7" //
-      speed={0.1} // Slower movement for realism
-    />
-  );
-};
-
 // Main Scene
 const Scene: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -373,7 +362,6 @@ const Scene: React.FC = () => {
         camera={{ position: [-5, 3, 5], fov: 55 }}
         style={{ background: "transparent" }}
       >
-        <GroundFog />
         {/* Add subtle fog for depth perception */}
         <fog attach="fog" args={["#e2eed7", 6, 16]} />
         {/* Neutral ambient light for overall scene illumination */}
