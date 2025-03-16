@@ -1,5 +1,9 @@
 import PersonalRoom from "@/components/three/PersonalRoom";
 
+export const metadata = {
+    title: "Home | Mindful Meadows",
+};
+
 export default function Home() {
   return (
     <div className="flex-1 w-screen">
