@@ -30,57 +30,72 @@ export const Header = () => {
           Mindful Meadows
         </h2>
       </Link>
+
       <nav className="flex flex-row items-center font-sans text-lg gap-4">
         <Link
           href="/rewards"
           className="
             no-underline
             text-black
-            bg-pink-200
+            bg-[#8EB59B]
             border-2
             border-black
-            rounded-md
-            px-3
-            py-1
+            rounded-full
+            w-20
+            h-20
+            flex
+            items-center
+            justify-center
             shadow-[2px_2px_0_0_rgba(0,0,0,1)]
           "
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="48"
-            height="48"
+            width="42"
+            height="42"
             viewBox="0 0 24 24"
-            fill="currentColor"
+            fill="#FFFFFF"
             className="icon icon-tabler icons-tabler-filled icon-tabler-gift"
           >
             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M11 14v8h-4a3 3 0 0 1 -3 -3v-4a1 1 0 0 1 1 -1h6zm8 0a1 1 0 0 1 1 1v4a3 3 0 0 1 -3 3h-4v-8h6zm-2.5 -12a3.5 3.5 0 0 1 3.163 5h.337a2 2 0 0 1 2 2v1a2 2 0 0 1 -2 2h-7v-5h-2v5h-7a2 2 0 0 1 -2 -2v-1a2 2 0 0 1 2 -2h.337a3.486 3.486 0 0 1 -.337 -1.5c0 -1.933 1.567 -3.5 3.483 -3.5c1.755 -.03 3.312 1.092 4.381 2.934l.136 .243c1.033 -1.914 2.56 -3.114 4.291 -3.175l.209 -.002zm-9 2a1.5 1.5 0 0 0 0 3h3.143c-.741 -1.905 -1.949 -3.02 -3.143 -3zm8.983 0c-1.18 -.02 -2.385 1.096 -3.126 3h3.143a1.5 1.5 0 1 0 -.017 -3z" />
+            <path d="M0 0h24v24H0z" fill="none" />
+            <path d="M18 4a4 4 0 0 1 3.995 3.8l.005 .2v8a4 4 0 0 1 -3.8 3.995l-.2 .005h-12a4 4 0 0 1 -3.995 -3.8l-.005 -.2v-8a4 4 0 0 1 3.8 -3.995l.2 -.005h12zm-5.493 5l-.19 .004c-.928 .052 -1.719 .583 -2.317 1.444c-.56 -.805 -1.288 -1.322 -2.139 -1.428l-.198 -.017l-.164 -.003l-.16 .005c-1.28 .086 -2.339 1.179 -2.339 2.495c0 1.226 1.222 2.211 2.453 2.447l.16 .026l-1.32 1.32l-.083 .094a1 1 0 0 0 0 1.226l.083 .094l.094 .083a1 1 0 0 0 1.226 0l.094 -.083l2.293 -2.292l2.293 2.292l.094 .083a1 1 0 0 0 1.403 -1.403l-.083 -.094l-1.32 -1.32c1.229 -.169 2.502 -1.11 2.606 -2.315l.007 -.158l-.005 -.163c-.08 -1.189 -1.02 -2.162 -2.175 -2.316l-.159 -.016l-.154 -.005zm-.025 2l.102 .009c.194 .04 .367 .21 .407 .406l.009 .085l-.012 .031l-.034 .04c-.13 .135 -.513 .369 -.836 .42l-.118 .009h-.602l.052 -.1l.088 -.156c.27 -.444 .574 -.696 .852 -.738l.092 -.006zm-4.964 0l.084 .005l.094 .02c.254 .077 .523 .32 .765 .718l.09 .157l.05 .1h-.601l-.106 -.008c-.398 -.057 -.894 -.4 -.894 -.492c0 -.23 .194 -.446 .416 -.491l.102 -.01z" />
           </svg>
         </Link>
+
         <Link
           href="/home"
           className="
             no-underline
             text-black
-            bg-yellow-200
+            bg-[#8EB59B]
             border-2
             border-black
-            rounded-md
-            px-3
-            py-1
+            rounded-full
+            w-20
+            h-20
+            flex
+            items-center
+            justify-center
             shadow-[2px_2px_0_0_rgba(0,0,0,1)]
           "
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="48"
-            height="48"
+            width="42"
+            height="42"
             viewBox="0 0 24 24"
-            fill="currentColor"
-            className="icon icon-tabler icons-tabler-filled icon-tabler-gift"
+            fill="none"
+            stroke="#FFFFFF"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="icon icon-tabler icons-tabler-outline icon-tabler-door"
           >
             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-            <path d="M12.707 2.293l9 9c.63 .63 .184 1.707 -.707 1.707h-1v6a3 3 0 0 1 -3 3h-1v-7a3 3 0 0 0 -2.824 -2.995l-.176 -.005h-2a3 3 0 0 0 -3 3v7h-1a3 3 0 0 1 -3 -3v-6h-1c-.89 0 -1.337 -1.077 -.707 -1.707l9 -9a1 1 0 0 1 1.414 0m.293 11.707a1 1 0 0 1 1 1v7h-4v-7a1 1 0 0 1 .883 -.993l.117 -.007z" />
+            <path d="M14 12v.01" />
+            <path d="M3 21h18" />
+            <path d="M6 21v-16a2 2 0 0 1 2 -2h8a2 2 0 0 1 2 2v16" />
           </svg>
         </Link>
       </nav>

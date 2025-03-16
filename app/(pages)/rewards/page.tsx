@@ -63,15 +63,12 @@ export default function Page() {
   return (
     <main
       className="
-        min-h-screen w-full
-        bg-[#ecdbcb]
-        bg-grid
-        bg-cover
+        min-h-screen
+        w-full
         p-8
-        mt-20
       "
     >
-      <div className="max-w-4xl mx-auto space-y-8">
+      <div className="max-w-4xl mx-auto space-y-8 ">
         <div className="p-6 space-y-8">
           <div className="flex flex-col items-center">
             <div className="relative w-48 h-48">
@@ -115,7 +112,7 @@ export default function Page() {
             <p className="mt-2 text-gray-600 font-semibold">Total Earned</p>
           </div>
 
-          <div className="flex flex-row items-center justify-center space-x-8">
+          <div className="flex flex-row items-center justify-center space-x-8 ">
             <div className="flex flex-col items-center">
               <div className="flex items-center space-x-2">
                 <span className="inline-block w-3 h-3 rounded-full bg-[#6366f1]" />
@@ -222,7 +219,7 @@ export default function Page() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
+            transition={{ duration: 0.3, ease: 'easeInOut' }}
             onClick={closeModal}
           >
             <motion.div
@@ -244,7 +241,7 @@ export default function Page() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.4, ease: "easeOut" }}
+              transition={{ duration: 0.4, ease: 'easeOut' }}
               onClick={(e) => e.stopPropagation()}
             >
               <h3 className="text-xl font-bold text-gray-800">Your QR Code</h3>

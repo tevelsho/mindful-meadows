@@ -42,9 +42,10 @@ export default function RootLayout({
           flex 
           flex-col 
           h-screen
-          bg-[#ecdbcb] 
-          bg-grid 
+          bg-[url('/background.jpg')]
           bg-cover
+          bg-no-repeat
+          bg-center
         `}
       >
         <Header />

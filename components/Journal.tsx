@@ -1,6 +1,7 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import AudioRecords from "../components/AudioRecord";
 
 const mentalHealthTips = [
   "Take a moment to breathe deeply and center yourself.",
@@ -14,36 +15,71 @@ function getRandomTip() {
   return mentalHealthTips[Math.floor(Math.random() * mentalHealthTips.length)];
 }
 
+function getToday9AM() {
+  const now = new Date();
+  return new Date(now.getFullYear(), now.getMonth(), now.getDate(), 9, 0, 0, 0);
+}
+
 export default function Journal() {
   const [isOpen, setIsOpen] = useState(false);
-
-  // Journal fields
   const [entryTitle, setEntryTitle] = useState("");
   const [entryDate, setEntryDate] = useState("");
-  const [entryMood, setEntryMood] = useState("Neutral");
-  const [entryAffirmation, setEntryAffirmation] = useState("");
-  const [entryGratitude, setEntryGratitude] = useState("");
-  const [entryActionStep, setEntryActionStep] = useState("");
   const [entryContent, setEntryContent] = useState("");
-
   const [dailyTip, setDailyTip] = useState("");
+
+  useEffect(() => {
+    const now = new Date();
+    const today9am = getToday9AM();
+
+    // Get stored data
+    const stored = localStorage.getItem("journalData");
+    if (stored) {
+      // Parse the existing data
+      const { completed, lastReset } = JSON.parse(stored);
+
+      if (now >= today9am && new Date(lastReset) < today9am) {
+        localStorage.setItem(
+          "journalData",
+          JSON.stringify({ completed: false, lastReset: now })
+        );
+        setDailyTip(getRandomTip());
+        setIsOpen(true);
+      } else {
+        if (!completed) {
+          setDailyTip(getRandomTip());
+          setIsOpen(true);
+        }
+      }
+    } else {
+      localStorage.setItem(
+        "journalData",
+        JSON.stringify({ completed: false, lastReset: now })
+      );
+      setDailyTip(getRandomTip());
+      setIsOpen(true);
+    }
+  }, []);
 
   const openJournal = () => {
     setDailyTip(getRandomTip());
     setIsOpen(true);
   };
+
   const closeJournal = () => setIsOpen(false);
 
   const handleSave = () => {
     console.log("Journal Entry Saved:", {
       entryTitle,
       entryDate,
-      entryMood,
-      entryAffirmation,
-      entryGratitude,
-      entryActionStep,
       entryContent,
     });
+
+    const now = new Date();
+    localStorage.setItem(
+      "journalData",
+      JSON.stringify({ completed: true, lastReset: now })
+    );
+
     closeJournal();
   };
 
@@ -51,7 +87,7 @@ export default function Journal() {
 
   return (
     <>
-      <div className="fixed bottom-8 right-12">
+      <div className="fixed bottom-8 right-12 z-50">
         <button
           onClick={openJournal}
           className="
@@ -111,8 +147,9 @@ export default function Journal() {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
               transition={{ duration: 0.4, ease: "easeOut" }}
-              onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
+              onClick={(e) => e.stopPropagation()}
             >
+              {/* Close button (top-right) */}
               <button
                 onClick={closeJournal}
                 className="
@@ -121,7 +158,7 @@ export default function Journal() {
                   right-4
                   p-2
                   bg-red-200
-                  text-gray-700
+                  text-gray-700 
                   rounded
                   border
                   border-gray-400
@@ -146,7 +183,9 @@ export default function Journal() {
                 </svg>
               </button>
 
+              {/* Two-Column Layout */}
               <div className="flex flex-row">
+                {/* Left Column */}
                 <div
                   className="
                     w-1/2
@@ -206,104 +245,6 @@ export default function Journal() {
                     "
                   />
 
-                  {/* Mood */}
-                  <label className="text-sm font-semibold text-gray-700">
-                    Mood
-                  </label>
-                  <select
-                    value={entryMood}
-                    onChange={(e) => setEntryMood(e.target.value)}
-                    className="
-                      w-full
-                      p-2
-                      mt-1
-                      mb-3
-                      border
-                      border-gray-300
-                      rounded
-                      focus:outline-none
-                      text-gray-800
-                      bg-white
-                    "
-                  >
-                    <option value="Happy">Happy</option>
-                    <option value="Sad">Sad</option>
-                    <option value="Stressed">Stressed</option>
-                    <option value="Calm">Calm</option>
-                    <option value="Anxious">Anxious</option>
-                    <option value="Grateful">Grateful</option>
-                    <option value="Neutral">Neutral</option>
-                  </select>
-
-                  {/* Gratitude */}
-                  <label className="text-sm font-semibold text-gray-700">
-                    What are you grateful for today?
-                  </label>
-                  <input
-                    type="text"
-                    value={entryGratitude}
-                    onChange={(e) => setEntryGratitude(e.target.value)}
-                    placeholder="E.g., Family, friends, a sunny day..."
-                    className="
-                      w-full
-                      p-2
-                      mt-1
-                      mb-3
-                      border
-                      border-gray-300
-                      rounded
-                      focus:outline-none
-                      text-gray-800
-                      bg-white
-                    "
-                  />
-
-                  {/* Action Step */}
-                  <label className="text-sm font-semibold text-gray-700">
-                    One small step I can take today
-                  </label>
-                  <input
-                    type="text"
-                    value={entryActionStep}
-                    onChange={(e) => setEntryActionStep(e.target.value)}
-                    placeholder="E.g., Go for a short walk, call a friend..."
-                    className="
-                      w-full
-                      p-2
-                      mt-1
-                      mb-3
-                      border
-                      border-gray-300
-                      rounded
-                      focus:outline-none
-                      text-gray-800
-                      bg-white
-                    "
-                  />
-
-                  {/* Affirmation */}
-                  <label className="text-sm font-semibold text-gray-700">
-                    Your Affirmation
-                  </label>
-                  <input
-                    type="text"
-                    value={entryAffirmation}
-                    onChange={(e) => setEntryAffirmation(e.target.value)}
-                    placeholder="e.g., 'I am strong and capable.'"
-                    className="
-                      w-full
-                      p-2
-                      mt-1
-                      mb-3
-                      border
-                      border-gray-300
-                      rounded
-                      focus:outline-none
-                      text-gray-800
-                      bg-white
-                    "
-                  />
-
                   {/* Gentle Reminder */}
                   <div className="mt-4 p-3 border border-gray-300 rounded bg-indigo-200">
                     <h3 className="font-semibold text-gray-800 mb-1">
@@ -311,22 +252,29 @@ export default function Journal() {
                     </h3>
                     <p className="text-sm text-gray-600">{dailyTip}</p>
                   </div>
+
+                  {/* Placeholder image below the Gentle Reminder */}
+                  <img
+                    src="/graphics/cat.png"
+                    alt="Cat"
+                    className="mt-6 w-full h-auto"
+                  />
                 </div>
 
-                {/* Right Page: also .bg-lined-paper for that “realistic” look */}
                 <div
                   className="
                     w-1/2
                     p-6
                     md:p-8
                     bg-lined-paper
+                    relative
                   "
                 >
                   <h2 className="text-xl font-bold text-gray-800 mb-4">
                     Reflection
                   </h2>
                   <textarea
-                    rows={8}
+                    rows={16}
                     value={entryContent}
                     onChange={(e) => setEntryContent(e.target.value)}
                     placeholder="How are you feeling today? Reflect on your day, your progress, or anything on your mind..."
@@ -343,13 +291,17 @@ export default function Journal() {
                       mb-3
                     "
                   />
-
                   {/* Word count */}
-                  <p className="text-sm text-gray-600 mb-4">
-                    Word Count: <span className="font-semibold">{wordCount}</span>
+                  <p className="text-sm text-gray-600 mb-2">
+                    Word Count: <span className="font-semibold">{entryContent ? entryContent.trim().split(/\s+/).filter(Boolean).length : 0}</span>
                   </p>
+                  
+                  <p className="font-normal text-sm mt-8 text-gray-600">Voice out how you feel instead!</p>
 
-                  <div className="flex justify-end">
+                  {/* Audio Recorder */}
+                  <AudioRecords />
+
+                  <div className="absolute bottom-6 right-6">
                     <button
                       onClick={handleSave}
                       className="

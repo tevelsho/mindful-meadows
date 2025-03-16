@@ -34,101 +34,38 @@ const homeIcon = (
 );
 
 const links = [
-  { href: "/", label: "Ngee Ann", color: "bg-pink-200", icon: leafIcon },
-  { href: "/", label: "Tevel", color: "bg-blue-200", icon: homeIcon },
-  { href: "/", label: "Jing Shun", color: "bg-green-200", icon: homeIcon },
-  { href: "/", label: "Javier", color: "bg-yellow-200", icon: homeIcon },
-  { href: "/", label: "Shawn", color: "bg-purple-200", icon: homeIcon },
-  { href: "/", label: "Gavin", color: "bg-orange-200", icon: homeIcon },
-  { href: "/", label: "FP1", color: "bg-lime-200", icon: leafIcon },
-  { href: "/", label: "FP2", color: "bg-teal-200", icon: leafIcon },
-  { href: "/", label: "FP3", color: "bg-red-200", icon: leafIcon },
-  { href: "/", label: "DSA", color: "bg-cyan-200", icon: leafIcon }, 
-  { href: "/", label: "DSA", color: "bg-fuchsia-200", icon: leafIcon }, 
-  { href: "/", label: "DSA", color: "bg-amber-200", icon: leafIcon },
-  { href: "/", label: "DSA", color: "bg-violet-200", icon: leafIcon }, 
-  { href: "/", label: "DSA", color: "bg-indigo-200", icon: leafIcon }, 
+  { href: "/", label: "Ngee Ann", color: "bg-gradient-to-r from-red-200 via-yellow-200 to-green-200", icon: leafIcon },
+  { href: "/", label: "Tevel", color: "bg-orange-200", icon: homeIcon },
+  { href: "/", label: "Jing Shun", color: "bg-yellow-200", icon: homeIcon },
+  { href: "/", label: "Javier", color: "bg-green-200", icon: homeIcon },
+  { href: "/", label: "Shawn", color: "bg-blue-200", icon: homeIcon },
+  { href: "/", label: "Gavin", color: "bg-indigo-200", icon: homeIcon },
+  { href: "/", label: "FP1", color: "bg-violet-200", icon: leafIcon },
+  { href: "/", label: "FP2", color: "bg-red-200", icon: leafIcon },
+  { href: "/", label: "FP3", color: "bg-orange-200", icon: leafIcon },
+  { href: "/", label: "DSA", color: "bg-yellow-200", icon: leafIcon },
+  { href: "/", label: "IMP", color: "bg-green-200", icon: leafIcon },
+  { href: "/", label: "VOICE", color: "bg-blue-200", icon: leafIcon },
+  { href: "/", label: "WISP", color: "bg-indigo-200", icon: leafIcon },
+  { href: "/", label: "PROID", color: "bg-violet-200", icon: leafIcon }
 ];
 
 export const Sidebar = () => {
   return (
-    <div
-      className="
-        fixed
-        right-0
-        top-[55%]
-        -translate-y-1/2
-        flex
-        items-center
-        justify-center
-        p-12
-        z-50
-        font-sans
-      "
-    >
-      <aside
-        className="
-          group
-          relative
-          h-[500px]
-          w-28
-          hover:w-48
-          transition-all
-          duration-500
-          ease-in-out
-          border-4
-          border-black
-          rounded-l-3xl
-          shadow-[2px_2px_0_0_rgba(0,0,0,1)]
-          overflow-y-auto
-          overflow-x-hidden
-          bg-white
-        "
-      >
+    <div className="fixed right-0 top-[50%] -translate-y-1/2 flex items-center justify-center p-12 z-50 font-sans">
+      <aside className="relative h-[600px] w-48 transition-all duration-500 ease-in-out border-4 border-black rounded-l-3xl shadow-[2px_2px_0_0_rgba(0,0,0,1)] overflow-y-auto overflow-x-hidden bg-[#E9EBE0]">
         <ul className="p-4 space-y-3">
           {links.map((item, i) => (
             <li
               key={i}
-              className={`
-                flex
-                items-center
-                justify-start
-                ${item.color}
-                border-2
-                border-black
-                rounded-md
-                p-2
-                shadow-[2px_2px_0_0_rgba(0,0,0,1)]
-                transition-all
-                duration-500
-                ease-in-out
-                transform
-                hover:bg-opacity-80
-                w-full
-                h-12
-              `}
+              className={`${item.color} flex items-center justify-start border-2 border-black rounded-md p-2 shadow-[2px_2px_0_0_rgba(0,0,0,1)] transition-all duration-500 ease-in-out hover:bg-opacity-80 w-full h-12`}
             >
               <Link
                 href={item.href}
                 className="flex items-center w-full no-underline text-black"
               >
                 <span className="flex-shrink-0">{item.icon}</span>
-                <span
-                  className="
-                    flex-grow
-                    pl-2
-                    opacity-0
-                    group-hover:opacity-100
-                    transition-all
-                    duration-500
-                    ease-in-out
-                    transform
-                    translate-x-[-10px]
-                    group-hover:translate-x-0
-                    font-bold
-                    whitespace-nowrap
-                  "
-                >
+                <span className="flex-grow pl-2 font-bold whitespace-nowrap">
                   {item.label}
                 </span>
               </Link>

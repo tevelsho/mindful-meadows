@@ -4,7 +4,7 @@ export default function Room() {
   return (
     <div className="flex-1 w-screen">
       <div className="h-full flex flex-row">
-        <PersonalRoom></PersonalRoom>
+        <PersonalRoom />
       </div>
     </div>
   );
