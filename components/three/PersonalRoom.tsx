@@ -81,7 +81,16 @@ export default function PersonalRoom() {
         <pointLight position={[0, 5, 0]} intensity={5} />
         <pointLight position={[-5, 5, 5]} intensity={4} />
         <pointLight position={[5, 5, -5]} intensity={4} />
-        <OrbitControls />
+        <OrbitControls
+          enableDamping
+          dampingFactor={0.05}
+          minDistance={3}
+          maxDistance={10}
+          maxPolarAngle={Math.PI / 2.1} // Prevent going below the ground
+          enableRotate={true} // Enable rotation
+          enableZoom={true} // Disable zoom
+          enablePan={false} // Disable panning (translation)
+        />{" "}
         {/* Add the couch model to the scene */}
         <primitive
           object={couch.scene}

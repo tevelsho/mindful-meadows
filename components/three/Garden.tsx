@@ -431,6 +431,9 @@ const Scene: React.FC = () => {
           minDistance={3}
           maxDistance={10}
           maxPolarAngle={Math.PI / 2.1} // Prevent going below the ground
+          enableRotate={true} // Enable rotation
+          enableZoom={true} // Disable zoom
+          enablePan={false} // Disable panning (translation)
         />
         <Fence position={[0, 0.5, -3]} /> {/* Back fence */}
         <Fence position={[3, 0.5, 0]} rotation={[0, Math.PI / 2, 0]} />{" "}

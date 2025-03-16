@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import AudioRecords from "../components/AudioRecord";
+import Analysis from "./Analysis";
 
 const mentalHealthTips = [
   "Take a moment to breathe deeply and center yourself.",
@@ -26,6 +27,7 @@ export default function Journal() {
   const [entryDate, setEntryDate] = useState("");
   const [entryContent, setEntryContent] = useState("");
   const [dailyTip, setDailyTip] = useState("");
+  const [postSubmit, setPostSubmit] = useState(false);
 
   useEffect(() => {
     const now = new Date();
@@ -65,7 +67,10 @@ export default function Journal() {
     setIsOpen(true);
   };
 
-  const closeJournal = () => setIsOpen(false);
+  const closeJournal = () => {
+    setIsOpen(false);
+    setPostSubmit(false);
+  };
 
   const handleSave = () => {
     console.log("Journal Entry Saved:", {
@@ -80,7 +85,9 @@ export default function Journal() {
       JSON.stringify({ completed: true, lastReset: now })
     );
 
-    closeJournal();
+    setPostSubmit(true);
+
+    //closeJournal();
   };
 
   const wordCount = entryContent.trim().split(/\s+/).filter(Boolean).length;
@@ -128,8 +135,9 @@ export default function Journal() {
             transition={{ duration: 0.3, ease: "easeInOut" }}
             onClick={closeJournal}
           >
-            <motion.div
-              className="
+            {!postSubmit && (
+              <motion.div
+                className="
                 relative
                 w-[90%]
                 max-w-4xl
@@ -143,16 +151,16 @@ export default function Journal() {
                 flex-col
                 overflow-hidden
               "
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ duration: 0.4, ease: "easeOut" }}
-              onClick={(e) => e.stopPropagation()}
-            >
-              {/* Close button (top-right) */}
-              <button
-                onClick={closeJournal}
-                className="
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                {/* Close button (top-right) */}
+                <button
+                  onClick={closeJournal}
+                  className="
                   absolute
                   top-4
                   right-4
@@ -166,28 +174,28 @@ export default function Journal() {
                   hover:scale-105
                   transition-transform
                 "
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
                 >
-                  <path d="M18 6L6 18" />
-                  <path d="M6 6l12 12" />
-                </svg>
-              </button>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M18 6L6 18" />
+                    <path d="M6 6l12 12" />
+                  </svg>
+                </button>
 
-              {/* Two-Column Layout */}
-              <div className="flex flex-row">
-                {/* Left Column */}
-                <div
-                  className="
+                {/* Two-Column Layout */}
+                <div className="flex flex-row">
+                  {/* Left Column */}
+                  <div
+                    className="
                     w-1/2
                     p-6
                     md:p-8
@@ -195,21 +203,21 @@ export default function Journal() {
                     border-gray-300
                     bg-lined-paper
                   "
-                >
-                  <h2 className="text-xl font-bold text-gray-800 mb-4">
-                    Journal Details
-                  </h2>
+                  >
+                    <h2 className="text-xl font-bold text-gray-800 mb-4">
+                      Journal Details
+                    </h2>
 
-                  {/* Title */}
-                  <label className="text-sm font-semibold text-gray-700">
-                    Title
-                  </label>
-                  <input
-                    type="text"
-                    value={entryTitle}
-                    onChange={(e) => setEntryTitle(e.target.value)}
-                    placeholder="Give your entry a name..."
-                    className="
+                    {/* Title */}
+                    <label className="text-sm font-semibold text-gray-700">
+                      Title
+                    </label>
+                    <input
+                      type="text"
+                      value={entryTitle}
+                      onChange={(e) => setEntryTitle(e.target.value)}
+                      placeholder="Give your entry a name..."
+                      className="
                       w-full
                       p-2
                       mt-1
@@ -221,17 +229,17 @@ export default function Journal() {
                       text-gray-800
                       bg-white
                     "
-                  />
+                    />
 
-                  {/* Date */}
-                  <label className="text-sm font-semibold text-gray-700">
-                    Date
-                  </label>
-                  <input
-                    type="date"
-                    value={entryDate}
-                    onChange={(e) => setEntryDate(e.target.value)}
-                    className="
+                    {/* Date */}
+                    <label className="text-sm font-semibold text-gray-700">
+                      Date
+                    </label>
+                    <input
+                      type="date"
+                      value={entryDate}
+                      onChange={(e) => setEntryDate(e.target.value)}
+                      className="
                       w-full
                       p-2
                       mt-1
@@ -243,42 +251,42 @@ export default function Journal() {
                       text-gray-800
                       bg-white
                     "
-                  />
+                    />
 
-                  {/* Gentle Reminder */}
-                  <div className="mt-4 p-3 border border-gray-300 rounded bg-indigo-200">
-                    <h3 className="font-semibold text-gray-800 mb-1">
-                      Gentle Reminder
-                    </h3>
-                    <p className="text-sm text-gray-600">{dailyTip}</p>
+                    {/* Gentle Reminder */}
+                    <div className="mt-4 p-3 border border-gray-300 rounded bg-indigo-200">
+                      <h3 className="font-semibold text-gray-800 mb-1">
+                        Gentle Reminder
+                      </h3>
+                      <p className="text-sm text-gray-600">{dailyTip}</p>
+                    </div>
+
+                    {/* Placeholder image below the Gentle Reminder */}
+                    <img
+                      src="/graphics/cat.png"
+                      alt="Cat"
+                      className="mt-6 w-full h-auto"
+                    />
                   </div>
 
-                  {/* Placeholder image below the Gentle Reminder */}
-                  <img
-                    src="/graphics/cat.png"
-                    alt="Cat"
-                    className="mt-6 w-full h-auto"
-                  />
-                </div>
-
-                <div
-                  className="
+                  <div
+                    className="
                     w-1/2
                     p-6
                     md:p-8
                     bg-lined-paper
                     relative
                   "
-                >
-                  <h2 className="text-xl font-bold text-gray-800 mb-4">
-                    Reflection
-                  </h2>
-                  <textarea
-                    rows={16}
-                    value={entryContent}
-                    onChange={(e) => setEntryContent(e.target.value)}
-                    placeholder="How are you feeling today? Reflect on your day, your progress, or anything on your mind..."
-                    className="
+                  >
+                    <h2 className="text-xl font-bold text-gray-800 mb-4">
+                      Reflection
+                    </h2>
+                    <textarea
+                      rows={16}
+                      value={entryContent}
+                      onChange={(e) => setEntryContent(e.target.value)}
+                      placeholder="How are you feeling today? Reflect on your day, your progress, or anything on your mind..."
+                      className="
                       w-full
                       p-2
                       border
@@ -290,21 +298,29 @@ export default function Journal() {
                       bg-white
                       mb-3
                     "
-                  />
-                  {/* Word count */}
-                  <p className="text-sm text-gray-600 mb-2">
-                    Word Count: <span className="font-semibold">{entryContent ? entryContent.trim().split(/\s+/).filter(Boolean).length : 0}</span>
-                  </p>
-                  
-                  <p className="font-normal text-sm mt-8 text-gray-600">Voice out how you feel instead!</p>
+                    />
+                    {/* Word count */}
+                    <p className="text-sm text-gray-600 mb-2">
+                      Word Count:{" "}
+                      <span className="font-semibold">
+                        {entryContent
+                          ? entryContent.trim().split(/\s+/).filter(Boolean)
+                              .length
+                          : 0}
+                      </span>
+                    </p>
 
-                  {/* Audio Recorder */}
-                  <AudioRecords />
+                    <p className="font-normal text-sm mt-8 text-gray-600">
+                      Voice out how you feel instead!
+                    </p>
 
-                  <div className="absolute bottom-6 right-6">
-                    <button
-                      onClick={handleSave}
-                      className="
+                    {/* Audio Recorder */}
+                    <AudioRecords />
+
+                    <div className="absolute bottom-6 right-6">
+                      <button
+                        onClick={handleSave}
+                        className="
                         px-5
                         py-3
                         bg-lime-100
@@ -317,13 +333,15 @@ export default function Journal() {
                         transition-transform
                         font-bold
                       "
-                    >
-                      Save Entry
-                    </button>
+                      >
+                        Save Entry
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </motion.div>
+              </motion.div>
+            )}
+            {postSubmit && <Analysis />}
           </motion.div>
         )}
       </AnimatePresence>
