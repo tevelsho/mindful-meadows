@@ -137,7 +137,7 @@ export default function RoomModal({
                 <pointLight position={[5, 5, -5]} intensity={4} />
 
                 <primitive
-                  object={teddyBearThumb.scene}
+                  object={teddyBearThumb.scene.clone()}
                   scale={[0.01, 0.01, 0.01]}
                 />
                 <OrbitControls />
