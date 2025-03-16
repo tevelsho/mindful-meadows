@@ -1,9 +1,17 @@
 "use client";
 import React, { useRef, useMemo, useState, useEffect } from "react";
-import { Canvas, useFrame, extend, useThree } from "@react-three/fiber";
+import {
+  Canvas,
+  useFrame,
+  extend,
+  useThree,
+  useLoader,
+} from "@react-three/fiber";
 import { OrbitControls, useTexture, Html } from "@react-three/drei";
 import * as THREE from "three";
 import GardenModal from "../modals/GardenModal";
+import { Cloud } from "@react-three/drei";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 
 // Types
 interface GridProps {
@@ -298,6 +306,7 @@ function Flower({
             <meshStandardMaterial
               color={petalColor.getHex()}
               side={THREE.DoubleSide}
+              roughness={0.5} // Slightly reflective
             />
           </mesh>
         );
@@ -334,6 +343,17 @@ interface PlantData {
   xy: [number, number];
 }
 
+const GroundFog: React.FC = () => {
+  return (
+    <Cloud
+      position={[0, -3.5, 0]} // Moves fog lower on screen
+      scale={[1, 1, 1]} // Wider fog, but thinner height
+      color="#e2eed7" //
+      speed={0.1} // Slower movement for realism
+    />
+  );
+};
+
 // Main Scene
 const Scene: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -345,6 +365,7 @@ const Scene: React.FC = () => {
       .then((json) => setData(json));
   }, []);
 
+  const gnome = useLoader(GLTFLoader, "/models/garden_gnome.glb");
   return (
     <>
       <Canvas
@@ -352,13 +373,36 @@ const Scene: React.FC = () => {
         camera={{ position: [-5, 3, 5], fov: 55 }}
         style={{ background: "transparent" }}
       >
-        <ambientLight intensity={0.5} />
+        <GroundFog />
+        {/* Add subtle fog for depth perception */}
+        <fog attach="fog" args={["#e2eed7", 6, 16]} />
+        {/* Neutral ambient light for overall scene illumination */}
+        <ambientLight intensity={0.4} color="#ffffff" />
         <directionalLight
           position={[10, 10, 5]}
-          intensity={1}
+          intensity={1.0}
+          color="#ffffff"
           castShadow
           shadow-mapSize-width={2048}
           shadow-mapSize-height={2048}
+          shadow-camera-far={20}
+          shadow-camera-left={-10}
+          shadow-camera-right={10}
+          shadow-camera-top={10}
+          shadow-camera-bottom={-10}
+        />
+        {/* Add cooler fill light for more dimension */}
+        <directionalLight
+          position={[-8, 6, -2]}
+          intensity={0.3}
+          color="#d0e0ff"
+        />
+        {/* Subtle accent light */}
+        <pointLight
+          position={[0, 1, 0]}
+          intensity={0.2}
+          color="#f0f5ff"
+          distance={4}
         />
         {/* Terrain with thickness and grass patch */}
         <Terrain
@@ -368,13 +412,13 @@ const Scene: React.FC = () => {
           grassColor="#9FCE41"
           dirtColor="#80642E"
         />
-        {/* <Flower
-          onClick={() => alert("test")}
-          name="Tevel"
-          pos={[-2.5, 0.4, -2.5]}
-          id={0}
-          plantHealth={0.1}
-        /> */}
+        {/* Gnome model */}
+        <primitive
+          object={gnome.scene}
+          position={[-2, 0, 2]}
+          scale={[0.003, 0.003, 0.003]}
+          rotation={[0, (5 * Math.PI) / 3, 0]}
+        />
         {data.map((item) => (
           <Flower
             key={item.id}
@@ -392,8 +436,6 @@ const Scene: React.FC = () => {
         <Grid size={6} divisions={6} color="#4a5568" opacity={0.3} />
         {/* Improved Grass */}
         <MemoizedGrassField />
-        {/* Grid Axis Helper */}
-        {/* <axesHelper args={[5]} /> */}
         {/* Controls */}
         <OrbitControls
           enableDamping
@@ -406,6 +448,7 @@ const Scene: React.FC = () => {
         <Fence position={[3, 0.5, 0]} rotation={[0, Math.PI / 2, 0]} />{" "}
         {/* Left fence */}
       </Canvas>
+
       <GardenModal
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
