@@ -37,7 +37,7 @@ export const Header = () => {
           className="
             no-underline
             text-black
-            bg-red-200
+            bg-[#8EB59B]
             border-2
             border-black
             rounded-full
@@ -54,7 +54,7 @@ export const Header = () => {
             width="42"
             height="42"
             viewBox="0 0 24 24"
-            fill="#f9f3ec"
+            fill="#FFFFFF"
             className="icon icon-tabler icons-tabler-filled icon-tabler-gift"
           >
             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -68,7 +68,7 @@ export const Header = () => {
           className="
             no-underline
             text-black
-            bg-blue-200
+            bg-[#8EB59B]
             border-2
             border-black
             rounded-full
@@ -86,7 +86,7 @@ export const Header = () => {
             height="42"
             viewBox="0 0 24 24"
             fill="none"
-            stroke="#f9f3ec"
+            stroke="#FFFFFF"
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"

@@ -295,6 +295,8 @@ export default function Journal() {
                   <p className="text-sm text-gray-600 mb-2">
                     Word Count: <span className="font-semibold">{entryContent ? entryContent.trim().split(/\s+/).filter(Boolean).length : 0}</span>
                   </p>
+                  
+                  <p className="font-normal text-sm mt-8 text-gray-600">Voice out how you feel instead!</p>
 
                   {/* Audio Recorder */}
                   <AudioRecords />

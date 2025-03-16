@@ -65,11 +65,7 @@ export default function Page() {
       className="
         min-h-screen
         w-full
-        bg-[#ecdbcb]
-        bg-grid
-        bg-cover
         p-8
-        mt-20
       "
     >
       <div className="max-w-4xl mx-auto space-y-8 ">

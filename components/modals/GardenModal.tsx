@@ -9,7 +9,7 @@ const iconMappings: Record<string, React.ReactNode> = {
       width="36"
       height="36"
       viewBox="0 0 24 24"
-      fill="#FECACA"
+      fill="#0B2B26"
     >
       <path stroke="none" d="M0 0h24v24H0z" fill="none" />
       <path d="M17 3.34a10 10 0 1 1 -14.995 8.984l-.005 -.324l.005 -.324a10 10 0 0 1 14.995 -8.336zm-5 9.86a4.5 4.5 0 0 0 -3.214 1.35a1 1 0 1 0 1.428 1.4a2.5 2.5 0 0 1 3.572 0a1 1 0 0 0 1.428 -1.4a4.5 4.5 0 0 0 -3.214 -1.35zm-2.99 -4.2l-.127 .007a1 1 0 0 0 0 1.986l.117 .007l.127 -.007a1 1 0 0 0 0 -1.986l-.117 -.007zm6 0l-.127 .007a1 1 0 0 0 0 1.986l.117 .007l.127 -.007a1 1 0 0 0 0 -1.986l-.117 -.007z" />
@@ -21,7 +21,7 @@ const iconMappings: Record<string, React.ReactNode> = {
       width="36"
       height="36"
       viewBox="0 0 24 24"
-      fill="#A5B4FC"
+      fill="#0B2B26"
     >
       <path stroke="none" d="M0 0h24v24H0z" fill="none" />
       <path d="M12 2c5.523 0 10 4.477 10 10s-4.477 10 -10 10a10 10 0 1 1 0 -20m3.707 12.293a1 1 0 0 0 -1.262 -.125l-.945 .63l-.945 -.63l-.116 -.066a1 1 0 0 0 -.994 .066l-.945 .63l-.945 -.63a1 1 0 0 0 -1.262 .125l-1 1a1 1 0 0 0 0 1.414l.094 .083a1 1 0 0 0 1.32 -.083l.42 -.42l.818 .545l.116 .066a1 1 0 0 0 .994 -.066l.945 -.63l.945 .63l.116 .066a1 1 0 0 0 .994 -.066l.817 -.545l.42 .42a1 1 0 0 0 1.415 -1.414z" />
@@ -33,7 +33,7 @@ const iconMappings: Record<string, React.ReactNode> = {
       width="36"
       height="36"
       viewBox="0 0 24 24"
-      fill="#FDE68A"
+      fill="#0B2B26"
     >
       <path stroke="none" d="M0 0h24v24H0z" fill="none" />
       <path d="M12 2c5.523 0 10 4.477 10 10s-4.477 10 -10 10a10 10 0 1 1 0 -20m2.5 13l-1.5 -1.5l-1.5 1.5m3 -6h-4m2 0v2m2 -4h-6m2 0v2" />
@@ -119,7 +119,7 @@ export default function GardenModal({
                 h-auto
                 p-6
                 md:p-8
-                bg-pink-100
+                bg-green-100
                 border-4
                 border-black
                 shadow-[2px_2px_0_0_rgba(0,0,0,1)]

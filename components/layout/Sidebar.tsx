@@ -34,7 +34,7 @@ const homeIcon = (
 );
 
 const links = [
-  { href: "/", label: "Ngee Ann", color: "bg-red-200", icon: leafIcon },
+  { href: "/", label: "Ngee Ann", color: "bg-gradient-to-r from-red-200 via-yellow-200 to-green-200", icon: leafIcon },
   { href: "/", label: "Tevel", color: "bg-orange-200", icon: homeIcon },
   { href: "/", label: "Jing Shun", color: "bg-yellow-200", icon: homeIcon },
   { href: "/", label: "Javier", color: "bg-green-200", icon: homeIcon },
@@ -44,16 +44,16 @@ const links = [
   { href: "/", label: "FP2", color: "bg-red-200", icon: leafIcon },
   { href: "/", label: "FP3", color: "bg-orange-200", icon: leafIcon },
   { href: "/", label: "DSA", color: "bg-yellow-200", icon: leafIcon },
-  { href: "/", label: "DSA", color: "bg-green-200", icon: leafIcon },
-  { href: "/", label: "DSA", color: "bg-blue-200", icon: leafIcon },
-  { href: "/", label: "DSA", color: "bg-indigo-200", icon: leafIcon },
-  { href: "/", label: "DSA", color: "bg-violet-200", icon: leafIcon }
+  { href: "/", label: "IMP", color: "bg-green-200", icon: leafIcon },
+  { href: "/", label: "VOICE", color: "bg-blue-200", icon: leafIcon },
+  { href: "/", label: "WISP", color: "bg-indigo-200", icon: leafIcon },
+  { href: "/", label: "PROID", color: "bg-violet-200", icon: leafIcon }
 ];
 
 export const Sidebar = () => {
   return (
     <div className="fixed right-0 top-[50%] -translate-y-1/2 flex items-center justify-center p-12 z-50 font-sans">
-      <aside className="relative h-[600px] w-48 transition-all duration-500 ease-in-out border-4 border-black rounded-l-3xl shadow-[2px_2px_0_0_rgba(0,0,0,1)] overflow-y-auto overflow-x-hidden bg-[#f6f0eb]">
+      <aside className="relative h-[600px] w-48 transition-all duration-500 ease-in-out border-4 border-black rounded-l-3xl shadow-[2px_2px_0_0_rgba(0,0,0,1)] overflow-y-auto overflow-x-hidden bg-[#E9EBE0]">
         <ul className="p-4 space-y-3">
           {links.map((item, i) => (
             <li
