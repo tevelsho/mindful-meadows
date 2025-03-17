@@ -1,6 +1,9 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Canvas, useLoader } from "@react-three/fiber";
+import { OrbitControls } from "@react-three/drei";
+import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 
 const iconMappings: Record<string, React.ReactNode> = {
   frustration: (
@@ -101,14 +104,18 @@ export default function GardenModal({
 
   const closeWaterModal = () => {
     setIsWaterOpen(false);
-    setTimeout(() => setPostMessage(true), 150);
     setEncouragingMessage("");
   };
 
   const handleSendMessage = () => {
     console.log(`Encouraging message for ${userName}:`, encouragingMessage);
+    setTimeout(() => setPostMessage(true), 150);
+    setLoading(true);
     closeWaterModal();
+    setTimeout(() => setLoading(false), 2000);
   };
+  const teddyBearThumb = useLoader(GLTFLoader, "/models/teddybear.glb");
+  const [loading, setLoading] = useState(false);
 
   return (
     <>
@@ -399,6 +406,7 @@ export default function GardenModal({
             </motion.div>
           </motion.div>
         )}
+
         {postMessage && (
           <motion.div
             className="fixed inset-0 z-[60] flex items-center justify-center bg-black/60 backdrop-blur-sm font-sans"
@@ -410,53 +418,95 @@ export default function GardenModal({
           >
             <motion.div
               className="
-                relative
-                w-[90%]
-                max-w-2xl
-                h-1/2
-                bg-lined-paper
-                border-2
-                border-black
-                rounded-lg
-                shadow-xl
-                p-6
-                flex
-                flex-col
-                overflow-hidden
-                
-              "
+          relative
+          w-[90%]
+          max-w-2xl
+          h-1/2
+          bg-lined-paper
+          border-2
+          border-black
+          rounded-lg
+          shadow-xl
+          p-6
+          flex
+          flex-col
+          overflow-hidden
+        "
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
               transition={{ duration: 0.4, ease: "easeOut" }}
               onClick={(e) => e.stopPropagation()}
             >
-              <h2 className="font-bold text-center text-2xl text-gray-800">
-                Message Successfully Sent
-              </h2>
-              <p className="text-center text-gray-600">
-                Your message has been sent to {userName}.
-              </p>
-              <button
-                onClick={() => setPostMessage(false)}
-                className="
-                  px-4
-                  py-2
-                  bg-blue-100
-                  text-black
-                  border-2
-                  border-black
-                  rounded-md
-                  shadow-[2px_2px_0_0_rgba(0,0,0,1)]
-                  font-semibold
-                  hover:scale-105
-                  transition-transform
-                  self-center
-                  mt-auto
-                "
-              >
-                Close
-              </button>
+              {loading ? (
+                // Loader
+                <div className="flex items-center justify-center w-full h-full">
+                  <div className="w-16 h-16 border-4 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>
+                </div>
+              ) : (
+                <>
+                  <h2 className="font-bold text-center text-2xl text-gray-800">
+                    Message Successfully Sent
+                  </h2>
+                  <p className="text-center text-gray-600">
+                    Your message has been sent to {userName}.
+                  </p>
+                  <p className="text-center text-black font-bold">
+                    49 Points Earned
+                  </p>
+                  <div className="flex flex-row h-full w-full gap-2">
+                    <div className="flex flex-col w-1/2 self-center border-r border-neutral-300 pr-4">
+                      <h3 className="font-bold">Message:</h3>
+                      <p>
+                        Hey man hope you are doing better. Remember this teddy
+                        bear? We got it after playing at Timezone for a day, it
+                        was one of the best highlights of my life, hope this
+                        helps you to remember better days. Cheers.
+                      </p>
+                    </div>
+
+                    <div className="flex flex-col w-1/2 self-center pl-4">
+                      <h3 className="font-bold">Generated 3D model</h3>
+                      <Canvas camera={{ position: [3, 4, 3], fov: 80 }} shadows>
+                        <ambientLight intensity={1.5} />
+                        <directionalLight
+                          position={[10, 10, 5]}
+                          intensity={2.5}
+                          castShadow
+                        />
+                        <pointLight position={[0, 5, 0]} intensity={5} />
+                        <pointLight position={[-5, 5, 5]} intensity={4} />
+                        <pointLight position={[5, 5, -5]} intensity={4} />
+                        <primitive
+                          object={teddyBearThumb.scene.clone()}
+                          scale={[0.01, 0.01, 0.01]}
+                        />
+                        <OrbitControls />
+                      </Canvas>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => setPostMessage(false)}
+                    className="
+            px-4
+            py-2
+            bg-blue-100
+            text-black
+            border-2
+            border-black
+            rounded-md
+            shadow-[2px_2px_0_0_rgba(0,0,0,1)]
+            font-semibold
+            hover:scale-105
+            transition-transform
+            self-center
+            mt-auto
+          "
+                  >
+                    Close
+                  </button>
+                </>
+              )}
             </motion.div>
           </motion.div>
         )}
