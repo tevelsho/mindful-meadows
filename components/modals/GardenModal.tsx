@@ -58,6 +58,9 @@ export default function GardenModal({
   const [isWaterOpen, setIsWaterOpen] = useState(false);
   const [encouragingMessage, setEncouragingMessage] = useState("");
 
+  // For the post message sent
+  const [postMessage, setPostMessage] = useState(false);
+
   // Fetch user data from local JSON
   useEffect(() => {
     fetch("dataset/users.json")
@@ -98,6 +101,7 @@ export default function GardenModal({
 
   const closeWaterModal = () => {
     setIsWaterOpen(false);
+    setTimeout(() => setPostMessage(true), 150);
     setEncouragingMessage("");
   };
 
@@ -392,6 +396,67 @@ export default function GardenModal({
                   Send Message
                 </button>
               </div>
+            </motion.div>
+          </motion.div>
+        )}
+        {postMessage && (
+          <motion.div
+            className="fixed inset-0 z-[60] flex items-center justify-center bg-black/60 backdrop-blur-sm font-sans"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            onClick={() => setPostMessage(false)}
+          >
+            <motion.div
+              className="
+                relative
+                w-[90%]
+                max-w-2xl
+                h-1/2
+                bg-lined-paper
+                border-2
+                border-black
+                rounded-lg
+                shadow-xl
+                p-6
+                flex
+                flex-col
+                overflow-hidden
+                
+              "
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <h2 className="font-bold text-center text-2xl text-gray-800">
+                Message Successfully Sent
+              </h2>
+              <p className="text-center text-gray-600">
+                Your message has been sent to {userName}.
+              </p>
+              <button
+                onClick={() => setPostMessage(false)}
+                className="
+                  px-4
+                  py-2
+                  bg-blue-100
+                  text-black
+                  border-2
+                  border-black
+                  rounded-md
+                  shadow-[2px_2px_0_0_rgba(0,0,0,1)]
+                  font-semibold
+                  hover:scale-105
+                  transition-transform
+                  self-center
+                  mt-auto
+                "
+              >
+                Close
+              </button>
             </motion.div>
           </motion.div>
         )}
