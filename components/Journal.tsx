@@ -124,6 +124,7 @@ export default function Journal() {
               inset-0
               z-50
               flex
+              font-sans
               items-center
               justify-center
               bg-black/60
@@ -332,6 +333,7 @@ export default function Journal() {
                         hover:scale-105
                         transition-transform
                         font-bold
+
                       "
                       >
                         Save Entry

@@ -62,23 +62,35 @@ export default function GardenModal({
   useEffect(() => {
     fetch("dataset/users.json")
       .then((res) => res.json())
-      .then((json: { id: number; name: string; emotions: string[]; summary: string }[]) => {
-        json.forEach((user) => {
-          if (user.id === id) {
-            setUserName(user.name);
-            setUserEmotions(user.emotions);
-            setUserSummary(user.summary);
-          }
-        });
-      });
+      .then(
+        (
+          json: {
+            id: number;
+            name: string;
+            emotions: string[];
+            summary: string;
+          }[]
+        ) => {
+          json.forEach((user) => {
+            if (user.id === id) {
+              setUserName(user.name);
+              setUserEmotions(user.emotions);
+              setUserSummary(user.summary);
+            }
+          });
+        }
+      );
 
     document.body.style.overflow = isOpen ? "hidden" : "auto";
   }, [isOpen, id]);
 
-  const progressValues = userEmotions.reduce<{ [key: string]: number }>((acc, emotion) => {
-    acc[emotion] = Math.floor(Math.random() * 100) + 1;
-    return acc;
-  }, {});
+  const progressValues = userEmotions.reduce<{ [key: string]: number }>(
+    (acc, emotion) => {
+      acc[emotion] = Math.floor(Math.random() * 100) + 1;
+      return acc;
+    },
+    {}
+  );
 
   const handleWaterFlower = () => {
     setIsWaterOpen(true);
@@ -231,7 +243,9 @@ export default function GardenModal({
                   "
                 >
                   Water {userName}'s flower
-                  <p className="text-sm text-gray-600">(Write an encouraging message)</p>
+                  <p className="text-sm text-gray-600">
+                    (Write an encouraging message)
+                  </p>
                 </button>
               </div>
             </motion.div>
@@ -242,7 +256,7 @@ export default function GardenModal({
       <AnimatePresence>
         {isWaterOpen && (
           <motion.div
-            className="fixed inset-0 z-[60] flex items-center justify-center bg-black/60 backdrop-blur-sm"
+            className="fixed inset-0 z-[60] flex items-center justify-center bg-black/60 backdrop-blur-sm font-sans"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -253,7 +267,7 @@ export default function GardenModal({
               className="
                 relative
                 w-[90%]
-                max-w-xl
+                max-w-2xl
                 bg-lined-paper
                 border-2
                 border-black
@@ -302,9 +316,12 @@ export default function GardenModal({
                 </svg>
               </button>
 
-              <h2 className="text-xl font-bold text-gray-800 mb-2">Encouraging Message</h2>
+              <h2 className="text-xl font-bold text-gray-800 mb-2">
+                Encouraging Message
+              </h2>
               <p className="text-sm text-gray-600 mb-4">
-                Send a short encouraging note to help water <strong>{userName}</strong>'s flower.
+                Send a short encouraging note to help water{" "}
+                <strong>{userName}</strong>'s flower.
               </p>
 
               {/* Text area */}
@@ -326,11 +343,33 @@ export default function GardenModal({
                   resize-none
                 "
               />
+              {/* Insert picture field */}
+              <div>
+                <h3 className="pb-2 text-sm">
+                  Insert an image of an accompanying object, something that is
+                  sentimental to you and the recipient. A 3D object will be
+                  generated using AI and sent.
+                </h3>
 
+                <input
+                  type="file"
+                  className="
+                    w-full
+                    p-2
+                    mb-3
+                    border
+                    border-gray-300
+                    rounded
+                    focus:outline-none
+                    text-gray-800
+                    bg-white
+                  "
+                />
+              </div>
               <img
                 src="/graphics/paper-plane.png"
                 alt="Paper Plane"
-                className="w-full h-auto"
+                className="w-2/3 "
               />
 
               <div className="flex justify-end">

@@ -19,6 +19,7 @@
     "react-dom": "^19.0.0",
     "react-media-recorder": "^1.7.1",
     "react-qr-code": "^2.0.15",
+    "recharts": "^2.15.1",
     "three": "^0.174.0"
   },
   "devDependencies": {
