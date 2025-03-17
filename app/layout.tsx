@@ -5,6 +5,7 @@ import { Header } from "@/components/layout/Header";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { ProgressBar } from "@/components/layout/Progressbar";
 import { Volume } from "@/components/Volume";
+import { DailyStreak } from "@/components/DailyStreak";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -52,6 +53,7 @@ export default function RootLayout({
         <Sidebar />
         <ProgressBar />
         {children}
+        <DailyStreak />
         <Volume />
       </body>
     </html>
