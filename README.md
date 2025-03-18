@@ -1,6 +1,4 @@
-<p align="left">
-  <a href="https://form.gov.sg"><img src="https://file.go.gov.sg/form-logo-background-rmved.png"></a>
-</p>
+![Mindful Meadows](public/images/mindful-meadows-banner.png)
 
 ## Table of Contents
 
@@ -8,70 +6,56 @@
 - [Features](#features)
 - [Local Development](#local-development)
   - [Prerequisites](#prerequisites)
-  - [First Setup](#first-setup)
-  - [Running Locally](#running-locally)
+  - [Initial Setup](#initial-setup)
+  - [Accessing the Local Development Environment](#accessing-the-local-development-environment)
 - [Acknowledgements](#acknowledgements)
+
+
+##
 
 ## Features
 
-FormSG is a form builder application built, open sourced and maintained by the [Open Government Products](https://open.gov.sg) team of the Singapore [Government Technology Agency](https://tech.gov.sg) to digitise paper processes.
+Mindful Meadows is a mental health app designed to foster seamless collaboration among students at Ngee Ann Polytechnic, aiming to enhance their mental well-being through the use of AI technology.
+
 
 Notable features include:
+- 
 
-- 19 different form field types, including attachments, tables, email and mobile
-- Verified email and mobile phone fields via integrations with Twilio and AWS SES
-- Automatic emailing of submissions for forms built with Email Mode
-- Encryption for data collected on forms built with Storage Mode
-- (Singapore government agencies only) Citizen authentication with [SingPass](https://www.singpass.gov.sg/singpass/common/aboutus)
-- (Singapore government agencies only) Citizen authentication with [sgID](https://www.id.gov.sg/)
-- (Singapore government agencies only) Corporate authentication with [CorpPass](https://www.corppass.gov.sg/corppass/common/aboutus)
-- (Singapore government agencies only) Automatic prefill of verified data with [MyInfo](https://www.singpass.gov.sg/myinfo/common/aboutus)
-- Webhooks functionality via the official [FormSG JavaScript SDK](https://github.com/opengovsg/formsg-sdk) and contributor-supported [FormSG Ruby SDK](https://github.com/opengovsg/formsg-ruby-sdk)
-- Variable amount and Itemised payments on forms with [stripe](https://stripe.com) integration
+- AI Integration
+  - Emotion Text Classifier
+  - Speech Emotion Recognition
+  - Image to 3D
+  - Gemini LLM
 
 ## Local Development 
 
 ### Prerequisites
 
-Install [docker and docker-compose](https://docs.docker.com/get-docker/) and the [node version manager](https://github.com/nvm-sh/nvm).
+Ensure that you have [Docker and Docker Compose](https://docs.docker.com/get-started/get-docker/) installed. Also, install the [Node Version Manager (nvm)](https://docs.docker.com/get-started/get-docker/) for managing Node.js versions.
 
-### First Setup
 
-First, make sure to install and use the node version used by the project:
+### Initial Setup
+
+Begin by ensuring that the appropriate version of Node.js for the project is installed and in use:
 
 ```bash
 nvm install
 nvm use
 ```
 
-To install the relevant npm packages (frontend, backend and virus-scanner), run the following in the root direcory:
+Next, install the required npm packages:
 
 ```bash
-npm install && npm --prefix serverless/virus-scanner install
+npm install
 ```
 
-If you are on Mac OS X, you may want to allow Docker to use more RAM (minimum of 4GB) by clicking on the Docker icon on the toolbar, clicking on the "Preferences" menu item, then clicking on the "Resources" link on the left.
+If you're using a Mac, you may want to adjust Docker's RAM allocation (minimum of 4GB). To do so, click on the Docker icon in the toolbar, open "Preferences," and then navigate to "Resources" to adjust the settings.
 
-### Running Locally
+### Accessing the Local Development Environment
+You can access your development environment at:
 
-First, build the frontend for local development:
+The Next.js app will be available at http://localhost:3000
 
-```bash
-npm run build:frontend
-```
-
-Run the following shell commands to build the Docker image. The first time will usually take 10 or so minutes. These commands runs the backend services specified under [docker-compose.yml](docker-compose.yml) and the React frontend on the native host.
-
-```bash
-npm run dev
-```
-
-After the Docker image has finished building, the following local applications can be accessed:
-
-- React application can be accessed at [localhost:5173](localhost:5173)
-- The backend API server can be accessed at [localhost:5001](localhost:5001)
-- The development mail server can be accessed at [localhost:1080](localhost:1080)
 
 ## Acknowledgements
-
-Mindful Meadows was built from scratch by [Tevel Sho](https://github.com/tevelsho) and [Jing Shun](https://github.com/fisherman-23) during the [MapleTree x NP 2025 Hackathon](https://sites.google.com/view/mapletreexnphack2025/).
+Mindful Meadows was created from the ground up by [Tevel Sho](https://github.com/tevelsho) and [Ooi Jing Shun](https://github.com/fisherman-23), with the concept ideated by Yap Jingxi Javier, Lim Xu Kai Shawn, and See Jun Zhe Gavin, during the [MapleTree x NP 2025 Hackathon](https://sites.google.com/view/mapletreexnphack2025/).
