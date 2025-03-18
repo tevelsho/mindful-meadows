@@ -43,7 +43,7 @@ export default function RootLayout({
           flex 
           flex-col 
           h-screen
-          bg-[url('/background.jpg')]
+          bg-[url('/background.png')]
           bg-cover
           bg-no-repeat
           bg-center
