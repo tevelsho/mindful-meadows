@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, DM_Sans } from "next/font/google";
 import "./globals.css";
-import { Header } from "@/components/layout/Header";
-import { Sidebar } from "@/components/layout/Sidebar";
-import { ProgressBar } from "@/components/layout/Progressbar";
-import { Volume } from "@/components/Volume";
-import { DailyStreak } from "@/components/DailyStreak";
+import { Header } from "@/app/components/layout/Header";
+import { Sidebar } from "@/app/components/layout/Sidebar";
+import { ProgressBar } from "@/app/components/layout/Progressbar";
+import { Volume } from "@/app/components/Volume";
+import { DailyStreak } from "@/app/components/DailyStreak";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -47,6 +47,7 @@ export default function RootLayout({
           bg-cover
           bg-no-repeat
           bg-center
+          
         `}
       >
         <Header />
