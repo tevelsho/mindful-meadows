@@ -87,7 +87,7 @@ export default function Journal() {
 
     setPostSubmit(true);
 
-    closeJournal();
+    //closeJournal();
   };
 
   return (
