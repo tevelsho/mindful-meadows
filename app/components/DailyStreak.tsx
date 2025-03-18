@@ -14,8 +14,8 @@ const flamePath = (
 const buttonFlameIcon = (
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="50"
-        height="50"
+        width="72"
+        height="72"
         viewBox="0 0 24 24"
     >
         <defs>
@@ -36,7 +36,7 @@ export const DailyStreak = () => {
 
     return (
         <>
-            <div className="fixed bottom-24 right-12 z-50">
+            <div className="fixed bottom-4 left-36 z-49">
                 <button
                     onClick={toggleStreak}
                     className="

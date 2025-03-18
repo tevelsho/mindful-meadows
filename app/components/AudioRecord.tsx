@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 
 export default function AudioRecords() {
   const [permission, setPermission] = useState(false);
@@ -39,7 +39,7 @@ export default function AudioRecords() {
     const recorder = new MediaRecorder(stream, { mimeType });
     mediaRecorder.current = recorder;
 
-    let localChunks: Blob[] = [];
+    const localChunks: Blob[] = [];
     recorder.ondataavailable = (e) => {
       if (e.data.size > 0) {
         localChunks.push(e.data);
@@ -110,12 +110,12 @@ export default function AudioRecords() {
       ctx.strokeStyle = "#ff4444";
       ctx.beginPath();
 
-      let sliceWidth = WIDTH / bufferLength;
+      const sliceWidth = WIDTH / bufferLength;
       let x = 0;
 
       for (let i = 0; i < bufferLength; i++) {
-        let v = dataArray[i] / 128.0;
-        let y = (v * HEIGHT) / 2;
+        const v = dataArray[i] / 128.0;
+        const y = (v * HEIGHT) / 2;
         if (i === 0) ctx.moveTo(x, y);
         else ctx.lineTo(x, y);
         x += sliceWidth;

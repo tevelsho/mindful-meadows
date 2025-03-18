@@ -47,7 +47,7 @@ export default function Page() {
     },
   ];
 
-  const [rewards, setRewards] = useState(initialRewards);
+  const [rewards ] = useState(initialRewards);
   const [showModal, setShowModal] = useState(false);
   const [selectedReward, setSelectedReward] = useState<
     null | (typeof rewards)[0]

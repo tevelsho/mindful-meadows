@@ -87,10 +87,8 @@ export default function Journal() {
 
     setPostSubmit(true);
 
-    //closeJournal();
+    closeJournal();
   };
-
-  const wordCount = entryContent.trim().split(/\s+/).filter(Boolean).length;
 
   return (
     <>

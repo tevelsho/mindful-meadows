@@ -253,7 +253,7 @@ export default function GardenModal({
                     transition-transform
                   "
                 >
-                  Water {userName}'s flower
+                  Water {userName}&apos;s flower
                   <p className="text-sm text-gray-600">
                     (Write an encouraging message)
                   </p>
@@ -332,7 +332,7 @@ export default function GardenModal({
               </h2>
               <p className="text-sm text-gray-600 mb-4">
                 Send a short encouraging note to help water{" "}
-                <strong>{userName}</strong>'s flower.
+                <strong>{userName}</strong>&apos;s flower.
               </p>
 
               {/* Text area */}
