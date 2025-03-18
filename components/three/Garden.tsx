@@ -3,14 +3,11 @@ import React, { useRef, useMemo, useState, useEffect } from "react";
 import {
   Canvas,
   useFrame,
-  extend,
-  useThree,
   useLoader,
 } from "@react-three/fiber";
-import { OrbitControls, useTexture, Html } from "@react-three/drei";
+import { OrbitControls, Html } from "@react-three/drei";
 import * as THREE from "three";
 import GardenModal from "../modals/GardenModal";
-import { Cloud } from "@react-three/drei";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 
 // Types
