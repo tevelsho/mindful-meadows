@@ -1,4 +1,4 @@
-<img src="public/images/mindful-meadows-icon.png" alt="Mindful Meadows" width="150" />
+<img src="public/images/mindful-meadows-icon.png" alt="Mindful Meadows" width="260" />
 
 
 ## Table of Contents
