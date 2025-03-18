@@ -311,25 +311,44 @@ function Flower({
       {/* Tooltip with health information */}
       {hovered && (
         <Html position={[0, 2.5, 0]} center>
-          <div className="bg-black/70 backdrop-blur-xl text-white text-md px-4 py-2 rounded-md font-sans font-bold">
-            {name}
-            <div className="mt-1 h-2 w-full bg-gray-600 rounded-full">
+          <div
+            className="
+              bg-lime-100
+              text-black
+              text-md
+              px-4
+              py-2
+              border  
+              border-black
+              font-sans
+              font-bold
+              shadow-[2px_2px_0_0_rgba(0,0,0,1)]
+              rounded-lg
+            "
+          >
+            {/* Plant Name */}
+            <p className="mb-2">{name}</p>
+
+            {/* Health Bar Container */}
+            <div className="h-2 w-full border-2 border-black bg-white">
               <div
-                className="h-full rounded-full"
+                className="h-full"
                 style={{
                   width: `${plantHealth * 100}%`,
                   backgroundColor:
                     plantHealth > 0.6
-                      ? "#22c55e"
+                      ? "#22c55e"   // green
                       : plantHealth > 0.3
-                      ? "#eab308"
-                      : "#ef4444",
+                      ? "#eab308"   // yellow
+                      : "#ef4444",  // red
                 }}
               />
             </div>
           </div>
         </Html>
       )}
+
+
     </group>
   );
 }

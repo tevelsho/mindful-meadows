@@ -92,12 +92,12 @@ export default function Journal() {
 
   return (
     <>
-      <div className="fixed bottom-8 right-12 z-50">
+      <div className="fixed bottom-8 right-12 z-45">
         <button
           onClick={openJournal}
           className="
-            px-6
-            py-3
+            px-2
+            py-1
             bg-lime-100
             text-black
             font-bold
@@ -110,7 +110,22 @@ export default function Journal() {
             font-sans
           "
         >
-          Write your daily journal
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="48"
+            height="48"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="icon icon-tabler icons-tabler-outline icon-tabler-pencil"
+          >
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+            <path d="M13.5 6.5l4 4" />
+          </svg>
         </button>
       </div>
 
@@ -331,7 +346,6 @@ export default function Journal() {
                         hover:scale-105
                         transition-transform
                         font-bold
-
                       "
                       >
                         Save Entry
