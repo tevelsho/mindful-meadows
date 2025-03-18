@@ -12,6 +12,8 @@ import { useCursor } from "@react-three/drei";
 import RoomModal from "../modals/RoomModal";
 
 export default function PersonalRoom() {
+  // Load the couch model (couch.glb)
+  const texture = useLoader(THREE.TextureLoader, "team.png");
 
   // Load both GLB files
   const gltfMain = useLoader(
@@ -41,8 +43,6 @@ export default function PersonalRoom() {
   const teddyBear = useLoader(GLTFLoader, "/models/teddybear.glb");
   const camera = useLoader(GLTFLoader, "/models/camera.glb");
   const couch = useLoader(GLTFLoader, "/models/couch.glb"); // Load the image texture
-  // Load the couch model (couch.glb)
-  const texture = useLoader(THREE.TextureLoader, "team.png");
 
   const scene = useMemo(() => {
     const clonedScene = gltfMain.scene.clone();

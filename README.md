@@ -1,4 +1,5 @@
-![Mindful Meadows](public/images/mindful-meadows-banner.png)
+<img src="public/images/mindful-meadows-icon.png" alt="Mindful Meadows" width="150" />
+
 
 ## Table of Contents
 
@@ -10,29 +11,47 @@
   - [Accessing the Local Development Environment](#accessing-the-local-development-environment)
 - [Acknowledgements](#acknowledgements)
 
-
-##
-
 ## Features
 
 Mindful Meadows is a mental health app designed to foster seamless collaboration among students at Ngee Ann Polytechnic, aiming to enhance their mental well-being through the use of AI technology.
 
 
-Notable features include:
-- 
+### Notable Features Include:
 
-- AI Integration
-  - Emotion Text Classifier
-  - Speech Emotion Recognition
-  - Image to 3D
-  - Gemini LLM
+#### 🌸 Personalized Virtual Flower
+- Each user is represented by a unique virtual flower that visually reflects their current mental and emotional state.
+- The flower evolves based on emotional inputs and interactions.
+
+#### 🤝 Community Support System
+- Other users can "water" your flower by sending **positive affirmations**.
+- Encourages empathy, connection, and mutual emotional support.
+- **Reward System**: Earn points for uplifting and supporting others.
+
+#### 🎵 AI Social Music Therapy
+- **Anonymous Group Music Sessions**: AI matches users with similar mood levels into groups.
+- **Music Recommendations**: Tailored songs based on collective emotional state.
+- **Emotional Sharing**: Anonymous chat allows users to discuss feelings evoked by music in a safe space.
+
+#### 🧠 AI-Powered Emotional Analysis
+- **NLP Emotional Analysis**: Processes text reflections to gauge sentiment and emotional tone.
+- **Speech Emotion Recognition**: Analyzes voice recordings to detect and interpret emotional states.
+
+#### 🤖 AI-Driven Mental Well-Being Support
+- **Gemini LLM Guidance**: Utilizes advanced AI to suggest actionable steps and recommendations for improving emotional health.
+
+#### 🎁 Personalized Digital & Physical Keepsakes
+- **Image-to-3D Model Conversion**: Transforms images into 3D digital keepsakes.
+- Option to create **physical gifts** for friends, enhancing real-world connections.
+
+#### 📔 Emotion Diary
+- Users can **write or speak** about their emotions daily.
+- AI analyzes inputs, provides **sentiment insights**, and offers **practical steps** for emotional regulation and improvement.
 
 ## Local Development 
 
 ### Prerequisites
 
-Ensure that you have [Docker and Docker Compose](https://docs.docker.com/get-started/get-docker/) installed. Also, install the [Node Version Manager (nvm)](https://docs.docker.com/get-started/get-docker/) for managing Node.js versions.
-
+Ensure that you have [Node Version Manager (nvm)](https://github.com/nvm-sh/nvm) installed for managing Node.js versions.
 
 ### Initial Setup
 
@@ -48,8 +67,6 @@ Next, install the required npm packages:
 ```bash
 npm install
 ```
-
-If you're using a Mac, you may want to adjust Docker's RAM allocation (minimum of 4GB). To do so, click on the Docker icon in the toolbar, open "Preferences," and then navigate to "Resources" to adjust the settings.
 
 ### Accessing the Local Development Environment
 You can access your development environment at:

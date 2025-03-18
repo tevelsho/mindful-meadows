@@ -26,7 +26,7 @@ export const Volume = () => {
         py-1
         shadow-[2px_2px_0_0_rgba(0,0,0,1)]
         hover:scale-105
-        ${isMuted ? "bg-red-200" : "bg-blue-200"}
+        ${isMuted ? "bg-red-200" : "bg-green-700"}
       `}
     >
       {isMuted ? (
@@ -58,7 +58,7 @@ export const Volume = () => {
           height="48"
           viewBox="0 0 24 24"
           fill="none"
-          stroke="black"
+          stroke="white"
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
