@@ -1,7 +1,7 @@
-import PersonalRoom from "@/components/three/PersonalRoom";
+import PersonalRoom from "@/app/components/three/PersonalRoom";
 
 export const metadata = {
-    title: "Home | Mindful Meadows",
+  title: "Home | Mindful Meadows",
 };
 
 export default function Home() {

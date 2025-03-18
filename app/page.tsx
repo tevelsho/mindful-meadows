@@ -1,5 +1,5 @@
-import Garden from "@/components/three/Garden";
-import Journal from "@/components/Journal";
+import Garden from "@/app/components/three/Garden";
+import Journal from "@/app/components/Journal";
 
 export default function Home() {
   return (

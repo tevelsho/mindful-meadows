@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import AudioRecords from "../components/AudioRecord";
+import AudioRecords from "./AudioRecord";
 import Analysis from "./Analysis";
 
 const mentalHealthTips = [
@@ -87,7 +87,7 @@ export default function Journal() {
 
     setPostSubmit(true);
 
-    closeJournal();
+    //closeJournal();
   };
 
   return (
