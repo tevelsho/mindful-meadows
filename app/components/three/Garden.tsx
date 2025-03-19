@@ -205,6 +205,67 @@ const GrassField: React.FC = () => {
 };
 
 const MemoizedGrassField = React.memo(GrassField);
+
+function RealFlower({ plantHealth }: { plantHealth: number }) {
+  // Load the GLTF model
+  const { scene: originalScene } = useGLTF("/models/flower.glb");
+  const flowerRef = useRef<THREE.Group>(null);
+
+  // Deep clone the scene and materials for this instance
+  const clonedScene = useMemo(() => {
+    const scene = originalScene.clone();
+    scene.traverse((child) => {
+      if ((child as THREE.Mesh).isMesh) {
+        const mesh = child as THREE.Mesh;
+        if (Array.isArray(mesh.material)) {
+          mesh.material = mesh.material.map((material) => material.clone());
+        } else {
+          mesh.material = mesh.material.clone();
+        }
+      }
+    });
+    return scene;
+  }, [originalScene]);
+
+  useEffect(() => {
+    if (!flowerRef.current) return;
+
+    // Create a new petal color based on HSL (unique for each flower)
+    const petalColor = new THREE.Color().setHSL(
+      0.15, // Hue (reddish color)
+      1 * plantHealth, // Saturation, dynamic based on plant health
+      0.6 * plantHealth // Lightness, dynamic based on plant health
+    );
+
+    // Apply the color to the cloned materials
+    flowerRef.current.traverse((child) => {
+      if ((child as THREE.Mesh).isMesh) {
+        const mesh = child as THREE.Mesh;
+        if (Array.isArray(mesh.material)) {
+          mesh.material.forEach((material) => {
+            if ("color" in material) {
+              (material as THREE.MeshStandardMaterial).color.set(petalColor);
+            }
+          });
+        } else if (mesh.material && "color" in mesh.material) {
+          (mesh.material as THREE.MeshStandardMaterial).color.set(petalColor);
+        }
+      }
+    });
+  }, [plantHealth]); // Re-run effect when plantHealth changes
+
+  return (
+    <primitive
+      ref={flowerRef}
+      object={clonedScene} // Use the deeply cloned scene
+      position={[0, 2.5, 0]}
+      scale={[5, 5, 5]}
+      rotation={[0, (5 * Math.PI) / 3, 0]}
+    />
+  );
+}
+
+const MemoRealFlower = React.memo(RealFlower);
 function Flower({
   onClick,
   name,
@@ -330,7 +391,6 @@ function Flower({
         <cylinderGeometry args={[0.1, 0.1, 6, 8]} />
         <meshStandardMaterial color={stemColor.getHex()} />
       </mesh>
-
       {/* Leaves on stem */}
       {[-1.5, -0.8, 0, 0.8, 1.6].map((y, i) => (
         <group
@@ -347,77 +407,18 @@ function Flower({
           </mesh>
         </group>
       ))}
-
       {/* Bud/calyx base - connects petals to stem */}
       <mesh position={[0, 2.85, 0]} castShadow receiveShadow>
         <cylinderGeometry args={[0.3, 0.1, 0.3, 8]} />
         <meshStandardMaterial color={new THREE.Color(0x2e7d32)} />
       </mesh>
-
       {/* Flower center */}
       <mesh position={[0, 3, 0]} castShadow receiveShadow>
         <sphereGeometry args={[0.3, 16, 16]} />
         <meshStandardMaterial color={centerColor.getHex()} />
       </mesh>
-
-      {/* Radiating petals */}
-      {Array.from({ length: 8 }).map((_, i) => {
-        const angle = (i * Math.PI * 2) / 8;
-        const x = Math.cos(angle);
-        const z = Math.sin(angle);
-
-        // Petal angle - slightly upward
-        const petalTilt = Math.PI * 0.18;
-
-        return (
-          <group key={i} position={[0, 3, 0]} rotation={[petalTilt, -angle, 0]}>
-            {/* Petal */}
-            <mesh
-              position={[0, 0.15, petalScale * 0.7]}
-              castShadow
-              receiveShadow
-            >
-              <planeGeometry args={[0.7, 1.2]} />
-              <meshStandardMaterial
-                color={petalColor.getHex()}
-                side={THREE.DoubleSide}
-                roughness={0.5}
-              />
-            </mesh>
-          </group>
-        );
-      })}
-
-      {/* Second layer of petals (offset) */}
-      {Array.from({ length: 8 }).map((_, i) => {
-        const angle = ((i + 0.5) * Math.PI * 2) / 8;
-        const petalTilt = Math.PI * 0.15;
-
-        return (
-          <group
-            key={`inner-${i}`}
-            position={[0, 3, 0]}
-            rotation={[petalTilt, -angle, 0]}
-          >
-            {/* Inner petal */}
-            <mesh
-              position={[0, 0.1, petalScale * 0.4]}
-              castShadow
-              receiveShadow
-            >
-              <planeGeometry args={[0.5, 0.9]} />
-              <meshStandardMaterial
-                color={new THREE.Color()
-                  .setHSL(0.15, 0.8 * plantHealth, 0.55)
-                  .getHex()}
-                side={THREE.DoubleSide}
-                roughness={0.5}
-              />
-            </mesh>
-          </group>
-        );
-      })}
-
+      <MemoRealFlower plantHealth={plantHealth} />
+      {/* Petals */}
       {/* Tooltip with health information */}
       {hovered && (
         <Html position={[0, 5, 0]} center>
