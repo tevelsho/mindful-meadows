@@ -1,7 +1,7 @@
 "use client";
 import React, { useMemo, useState, useEffect } from "react";
 import { Canvas, useLoader } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
+import { OrbitControls, useGLTF, useKTX2 } from "@react-three/drei";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader.js";
 import { KTX2Loader } from "three/examples/jsm/loaders/KTX2Loader.js";
@@ -12,7 +12,6 @@ import { useCursor } from "@react-three/drei";
 import RoomModal from "../modals/RoomModal";
 
 export default function PersonalRoom() {
-
   // Load both GLB files
   const gltfMain = useLoader(
     GLTFLoader,
@@ -22,17 +21,20 @@ export default function PersonalRoom() {
       dracoLoader.setDecoderPath("https://www.gstatic.com/draco/v1/decoders/");
       loader.setDRACOLoader(dracoLoader);
 
-      const renderer = new THREE.WebGLRenderer();
-      renderer.outputColorSpace = THREE.SRGBColorSpace;
+      // Check if we're in a client-side environment
+      if (typeof window !== "undefined") {
+        const renderer = new THREE.WebGLRenderer();
+        renderer.outputColorSpace = THREE.SRGBColorSpace;
 
-      const ktx2Loader = new KTX2Loader()
-        .setTranscoderPath(
-          "https://cdn.jsdelivr.net/gh/mrdoob/three.js@dev/examples/jsm/libs/basis/"
-        )
-        .detectSupport(renderer);
+        const ktx2Loader = new KTX2Loader()
+          .setTranscoderPath(
+            "https://cdn.jsdelivr.net/gh/mrdoob/three.js@dev/examples/jsm/libs/basis/"
+          )
+          .detectSupport(renderer);
 
-      loader.setKTX2Loader(ktx2Loader);
-      loader.setMeshoptDecoder(MeshoptDecoder);
+        loader.setKTX2Loader(ktx2Loader);
+        loader.setMeshoptDecoder(MeshoptDecoder);
+      }
     }
   );
 
@@ -42,7 +44,7 @@ export default function PersonalRoom() {
   const camera = useLoader(GLTFLoader, "/models/camera.glb");
   const couch = useLoader(GLTFLoader, "/models/couch.glb"); // Load the image texture
   // Load the couch model (couch.glb)
-  const texture = useLoader(THREE.TextureLoader, "team.png");
+  const texture = useLoader(THREE.TextureLoader, "team.jpg");
 
   const scene = useMemo(() => {
     const clonedScene = gltfMain.scene.clone();

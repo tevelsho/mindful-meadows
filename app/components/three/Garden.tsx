@@ -1,14 +1,10 @@
 "use client";
 import React, { useRef, useMemo, useState, useEffect } from "react";
-import {
-  Canvas,
-  useFrame,
-  useLoader,
-} from "@react-three/fiber";
-import { OrbitControls, Html } from "@react-three/drei";
+import { Canvas, useFrame, useLoader } from "@react-three/fiber";
+import { OrbitControls, Html, useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 import GardenModal from "../modals/GardenModal";
-import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
 // Types
 interface GridProps {
@@ -339,7 +335,17 @@ interface PlantData {
   plant_health: number;
   xy: [number, number];
 }
-
+function Gnome() {
+  const { scene } = useGLTF("/models/garden_gnome.glb");
+  return (
+    <primitive
+      object={scene}
+      position={[-2, 0, 2]}
+      scale={[0.003, 0.003, 0.003]}
+      rotation={[0, (5 * Math.PI) / 3, 0]}
+    />
+  );
+}
 // Main Scene
 const Scene: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -351,7 +357,6 @@ const Scene: React.FC = () => {
       .then((json) => setData(json));
   }, []);
 
-  const gnome = useLoader(GLTFLoader, "/models/garden_gnome.glb");
   return (
     <>
       <Canvas
@@ -398,12 +403,7 @@ const Scene: React.FC = () => {
           dirtColor="#80642E"
         />
         {/* Gnome model */}
-        <primitive
-          object={gnome.scene}
-          position={[-2, 0, 2]}
-          scale={[0.003, 0.003, 0.003]}
-          rotation={[0, (5 * Math.PI) / 3, 0]}
-        />
+        <Gnome />
         {data.map((item) => (
           <Flower
             key={item.id}

@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Canvas, useLoader } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
+import { OrbitControls, useGLTF } from "@react-three/drei";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 
 const iconMappings: Record<string, React.ReactNode> = {
@@ -43,6 +43,10 @@ const iconMappings: Record<string, React.ReactNode> = {
     </svg>
   ),
 };
+function Bear() {
+  const { scene } = useGLTF("/models/teddybear.glb");
+  return <primitive object={scene.clone()} scale={[0.01, 0.01, 0.01]} />;
+}
 
 export default function GardenModal({
   isOpen,
@@ -114,7 +118,7 @@ export default function GardenModal({
     closeWaterModal();
     setTimeout(() => setLoading(false), 2000);
   };
-  const teddyBearThumb = useLoader(GLTFLoader, "/models/teddybear.glb");
+
   const [loading, setLoading] = useState(false);
 
   return (
@@ -477,10 +481,7 @@ export default function GardenModal({
                         <pointLight position={[0, 5, 0]} intensity={5} />
                         <pointLight position={[-5, 5, 5]} intensity={4} />
                         <pointLight position={[5, 5, -5]} intensity={4} />
-                        <primitive
-                          object={teddyBearThumb.scene.clone()}
-                          scale={[0.01, 0.01, 0.01]}
-                        />
+                        <Bear />
                         <OrbitControls />
                       </Canvas>
                     </div>
