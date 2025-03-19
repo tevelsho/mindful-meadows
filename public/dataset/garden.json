@@ -4,10 +4,10 @@
     { "id": 3, "name": "Michael", "plant_health": 0.92, "xy": [-0.5, 0.5] },
     { "id": 4, "name": "Sarah", "plant_health": 0.45, "xy": [0.5, 1.5] },
     { "id": 5, "name": "David", "plant_health": 0.78, "xy": [1.5, 2.5] },
-    { "id": 6, "name": "Emma", "plant_health": 0.33, "xy": [2.5, -0.5] },
+    { "id": 6, "name": "Emma", "plant_health": 0.4, "xy": [0.5, -2.5] },
     { "id": 7, "name": "James", "plant_health": 0.99, "xy": [-1.5, 0.5] },
-    { "id": 8, "name": "Olivia", "plant_health": 0.12, "xy": [0.5, 0.5] },
-    { "id": 9, "name": "Daniel", "plant_health": 0.56, "xy": [1.5, -0.5] },
+    { "id": 8, "name": "Olivia", "plant_health": 0.32, "xy": [0.5, 0.5] },
+    { "id": 9, "name": "Daniel", "plant_health": 0.56, "xy": [0.5, -0.5] },
     { "id": 10, "name": "Sophia", "plant_health": 0.74, "xy": [2.5, 1.5] }
   ]
   

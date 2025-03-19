@@ -222,6 +222,7 @@ function Flower({
 }) {
   const [hovered, setHovered] = useState(false);
   const flowerRef = useRef<THREE.Group>(null);
+  const particlesRef = useRef<THREE.Points>(null);
 
   // Calculate health-based colors
   const stemColor = new THREE.Color().setHSL(
@@ -230,10 +231,11 @@ function Flower({
     0.4 * plantHealth + 0.2
   );
   const petalColor = new THREE.Color().setHSL(
-    0.9,
-    0.8 * plantHealth,
-    0.7 * plantHealth + 0.2
+    0.15,
+    1 * plantHealth,
+    0.6 * plantHealth
   );
+
   const centerColor = new THREE.Color().setHSL(
     0.15,
     0.8 * plantHealth,
@@ -242,26 +244,77 @@ function Flower({
 
   // Scale based on health
   const flowerScale = 0.19;
-  const petalScale = 0.6 * (0.8 + 0.2 * plantHealth);
+  const petalScale = 0.8 * (0.8 + 0.2 * plantHealth);
 
   // Animate based on health
   useFrame((state) => {
     if (flowerRef.current) {
-      // Healthy plants sway more, unhealthy plants droop and move less
       const swayAmount = 0.1 * plantHealth;
       const droopAmount = (1 - plantHealth) * 0.5;
-
       flowerRef.current.rotation.y =
         Math.sin(state.clock.getElapsedTime() * 0.5) * swayAmount;
       flowerRef.current.rotation.z = droopAmount;
     }
+
+    if (particlesRef.current && plantHealth < 0.5) {
+      const time = state.clock.getElapsedTime();
+      const positions = particlesRef.current.geometry.attributes.position.array;
+
+      for (let i = 0; i < positions.length; i += 3) {
+        positions[i + 1] += 0.02; // Make particles float up slowly
+
+        // Reset particles to the starting position when they move too high
+        if (positions[i + 1] > 5) positions[i + 1] = -4;
+      }
+
+      // Update the particle position buffer
+      particlesRef.current.geometry.attributes.position.needsUpdate = true;
+    }
   });
+
+  // Create floating particles effect
+  useEffect(() => {
+    const particleCount = 8;
+    const particles = new Float32Array(particleCount * 3);
+
+    for (let i = 0; i < particleCount; i++) {
+      // Random position around the flower
+      particles[i * 3] = Math.random() * 2 - 1; // x
+      particles[i * 3 + 1] = Math.random() * 2 - 4.5; // y (start from different heights)
+      particles[i * 3 + 2] = Math.random() * 2 - 1; // z
+    }
+
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute("position", new THREE.BufferAttribute(particles, 3));
+
+    const material = new THREE.PointsMaterial({
+      color: new THREE.Color().setHSL(0, 0, 0.099).getHex(), // Lower lightness for dark grey
+      size: 0.05,
+      transparent: true,
+      opacity: 1,
+    });
+
+    const pointCloud = new THREE.Points(geometry, material);
+    if (flowerRef.current) {
+      flowerRef.current.add(pointCloud);
+    }
+
+    // Assign reference to the particles
+    particlesRef.current = pointCloud;
+
+    // Cleanup particles on unmount
+    return () => {
+      if (flowerRef.current && particlesRef.current) {
+        flowerRef.current.remove(particlesRef.current);
+      }
+    };
+  }, [petalColor]);
 
   return (
     <group
       ref={flowerRef}
       position={pos}
-      scale={flowerScale} // Scale affected by health
+      scale={flowerScale}
       onClick={onClick}
       onPointerOver={() => {
         document.body.style.cursor = "pointer";
@@ -272,41 +325,102 @@ function Flower({
         setHovered(false);
       }}
     >
-      {/* Flower stem */}
-      <mesh position={[0, -1.8, 0]} castShadow receiveShadow>
-        <cylinderGeometry args={[0.1, 0.1, 3, 8]} />
+      {/* Stem */}
+      <mesh position={[0, 0, 0]} castShadow receiveShadow>
+        <cylinderGeometry args={[0.1, 0.1, 6, 8]} />
         <meshStandardMaterial color={stemColor.getHex()} />
       </mesh>
-      {/* Flower center */}
-      <mesh position={[0, 0, 0]} castShadow receiveShadow>
-        <sphereGeometry args={[0.5, 16, 16]} />
-        <meshStandardMaterial color={centerColor.getHex()} />
-      </mesh>
-      {/* Flower petals - creating 8 petals around the center */}
-      {Array.from({ length: 8 }).map((_, i) => {
-        const angle = (i * Math.PI * 2) / 8;
-        const x = Math.cos(angle) * petalScale; // Scale based on health
-        const z = Math.sin(angle) * petalScale; // Scale based on health
-        return (
-          <mesh
-            key={i}
-            position={[x, 0, z]}
-            rotation={[0, -angle + Math.PI / 2, 0]}
-            castShadow
-            receiveShadow
-          >
-            <sphereGeometry args={[0.6, 8, 8, 0, Math.PI * 0.5]} />
+
+      {/* Leaves on stem */}
+      {[-1.5, -0.8, 0, 0.8, 1.6].map((y, i) => (
+        <group
+          key={`leaf-${i}`}
+          position={[0, y, 0]}
+          rotation={[0, 0, Math.PI * 0.25 * (i % 2 ? 1 : -1)]}
+        >
+          <mesh castShadow receiveShadow>
+            <coneGeometry args={[0.2, 0.5, 8]} />
             <meshStandardMaterial
-              color={petalColor.getHex()}
+              color={stemColor.getHex()}
               side={THREE.DoubleSide}
-              roughness={0.5} // Slightly reflective
             />
           </mesh>
+        </group>
+      ))}
+
+      {/* Bud/calyx base - connects petals to stem */}
+      <mesh position={[0, 2.85, 0]} castShadow receiveShadow>
+        <cylinderGeometry args={[0.3, 0.1, 0.3, 8]} />
+        <meshStandardMaterial color={new THREE.Color(0x2e7d32)} />
+      </mesh>
+
+      {/* Flower center */}
+      <mesh position={[0, 3, 0]} castShadow receiveShadow>
+        <sphereGeometry args={[0.3, 16, 16]} />
+        <meshStandardMaterial color={centerColor.getHex()} />
+      </mesh>
+
+      {/* Radiating petals */}
+      {Array.from({ length: 8 }).map((_, i) => {
+        const angle = (i * Math.PI * 2) / 8;
+        const x = Math.cos(angle);
+        const z = Math.sin(angle);
+
+        // Petal angle - slightly upward
+        const petalTilt = Math.PI * 0.18;
+
+        return (
+          <group key={i} position={[0, 3, 0]} rotation={[petalTilt, -angle, 0]}>
+            {/* Petal */}
+            <mesh
+              position={[0, 0.15, petalScale * 0.7]}
+              castShadow
+              receiveShadow
+            >
+              <planeGeometry args={[0.7, 1.2]} />
+              <meshStandardMaterial
+                color={petalColor.getHex()}
+                side={THREE.DoubleSide}
+                roughness={0.5}
+              />
+            </mesh>
+          </group>
         );
       })}
+
+      {/* Second layer of petals (offset) */}
+      {Array.from({ length: 8 }).map((_, i) => {
+        const angle = ((i + 0.5) * Math.PI * 2) / 8;
+        const petalTilt = Math.PI * 0.15;
+
+        return (
+          <group
+            key={`inner-${i}`}
+            position={[0, 3, 0]}
+            rotation={[petalTilt, -angle, 0]}
+          >
+            {/* Inner petal */}
+            <mesh
+              position={[0, 0.1, petalScale * 0.4]}
+              castShadow
+              receiveShadow
+            >
+              <planeGeometry args={[0.5, 0.9]} />
+              <meshStandardMaterial
+                color={new THREE.Color()
+                  .setHSL(0.15, 0.8 * plantHealth, 0.55)
+                  .getHex()}
+                side={THREE.DoubleSide}
+                roughness={0.5}
+              />
+            </mesh>
+          </group>
+        );
+      })}
+
       {/* Tooltip with health information */}
       {hovered && (
-        <Html position={[0, 2.5, 0]} center>
+        <Html position={[0, 5, 0]} center>
           <div
             className="
               bg-lime-100
@@ -324,7 +438,6 @@ function Flower({
           >
             {/* Plant Name */}
             <p className="mb-2">{name}</p>
-
             {/* Health Bar Container */}
             <div className="h-2 w-full border-2 border-black bg-white">
               <div
@@ -333,18 +446,16 @@ function Flower({
                   width: `${plantHealth * 100}%`,
                   backgroundColor:
                     plantHealth > 0.6
-                      ? "#22c55e"   // green
+                      ? "#22c55e" // green
                       : plantHealth > 0.3
-                      ? "#eab308"   // yellow
-                      : "#ef4444",  // red
+                      ? "#eab308" // yellow
+                      : "#ef4444", // red
                 }}
               />
             </div>
           </div>
         </Html>
       )}
-
-
     </group>
   );
 }
