@@ -35,6 +35,7 @@ export const Volume = () => {
           shadow-[2px_2px_0_0_rgba(0,0,0,1)]
           hover:scale-105
           bg-green-700
+          
         "
       >
         <svg

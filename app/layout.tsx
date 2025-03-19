@@ -47,6 +47,7 @@ export default function RootLayout({
           bg-cover
           bg-no-repeat
           bg-center
+          font-sans
           
         `}
       >

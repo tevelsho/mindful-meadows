@@ -92,7 +92,7 @@ export default function Journal() {
 
   return (
     <>
-      <div className="fixed bottom-8 right-12 z-45">
+      <div className="fixed bottom-8 right-12 z-[45]">
         <button
           onClick={openJournal}
           className="
