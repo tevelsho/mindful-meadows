@@ -38,7 +38,7 @@ const links = [
     href: "/",
     label: "Ngee Ann",
     color:
-        "text-white bg-gradient-to-r from-red-200 via-yellow-200 to-green-200",
+        "text-[#304529] bg-gradient-to-r from-red-200 via-yellow-200 to-green-200",
     icon: leafIcon,
   },
   { href: "/", label: "Tevel", color: "bg-orange-200", icon: homeIcon },
@@ -73,10 +73,10 @@ export const Sidebar = () => {
                     <Link
                         href={item.href}
                         className={`flex items-center w-full no-underline ${
-                            isSelected ? "text-green-500" : "text-black"
+                            isSelected ? "text-[#2E6F40]" : "text-black"
                         }`}
                     >
-                  <span className={`flex-shrink-0 ${isSelected ? "text-green-500" : ""}`}>
+                  <span className={`flex-shrink-0 ${isSelected ? "text-[#2E6F40]" : ""}`}>
                     {item.icon}
                   </span>
                       <span className="flex-grow pl-2 font-bold whitespace-nowrap">

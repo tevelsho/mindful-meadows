@@ -5,13 +5,13 @@ export const Header = () => {
   return (
       <section className="flex flex-row justify-between p-12 z-10 fixed w-full overflow-x-hidden">
         <Link href="/" className="no-underline">
-          <h2 className="flex items-center font-sans font-bold text-3xl text-amber-900">
+          <h2 className="flex items-center font-sans font-bold text-3xl text-green-900">
             <img
                 src="/logo/mindful-meadows.png"
                 alt="Mindful Meadows Logo"
                 width={64}
                 height={64}
-                className="mr-4 rounded" // Use "rounded-full" if you prefer a fully circular shape
+                className="mr-4 rounded" 
             />
             Mindful Meadows
           </h2>

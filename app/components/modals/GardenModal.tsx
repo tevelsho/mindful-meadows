@@ -470,7 +470,7 @@ export default function GardenModal({
                     </div>
 
                     <div className="flex flex-col w-1/2 self-center pl-4">
-                      <h3 className="font-bold">Generated 3D model</h3>
+                      <h3 className="font-bold">Your generated 3D model!</h3>
                       <Canvas camera={{ position: [3, 4, 3], fov: 80 }} shadows>
                         <ambientLight intensity={1.5} />
                         <directionalLight
