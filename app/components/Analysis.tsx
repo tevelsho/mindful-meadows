@@ -66,7 +66,7 @@ const Analysis = () => {
         relative
         w-[90%]
         max-w-6xl
-        h-[90%]
+        h-[95%]
         bg-white
         border
         border-gray-300
@@ -104,7 +104,7 @@ const Analysis = () => {
             >
               <h2 className="text-xl font-bold text-gray-800 mb-4 ">
                 Journal Analysis{" "}
-                <span className="font-normal text-neutral-500">(Text)</span>
+                <span className="font-normal text-neutral-500">(Voice)</span>
               </h2>
               <img
                 src="/graphics/cat.png"
@@ -144,9 +144,18 @@ const Analysis = () => {
             <h2 className="font-bold text-lg pb-2">
               Emotions
               <span className="text-neutral-500 font-normal">
+                {" "}
                 - Despair, Anger, Regret
               </span>
             </h2>
+            <h2 className="font-bold text-lg">
+              Underlying Emotions
+              <span className="text-neutral-500 font-normal"> - Sadness</span>
+            </h2>
+            <p className="font-normal text-neutral-500 text-sm pb-2">
+              We analyze tone and intonation to reveal hidden emotions, offering
+              a deeper understanding of your true feelings.
+            </p>
             {/* <h2 className="font-bold text-lg pb-2">
             Risk to self and others
             <span className="text-neutral-500 font-normal">- None</span>
@@ -154,6 +163,7 @@ const Analysis = () => {
             <h2 className="font-bold text-lg pb-2">
               Summary
               <span className="text-neutral-500 font-normal">
+                {" "}
                 - You have recently lost a hackathon despite putting in many
                 hours. You feel tired and angry as your teammates were all
                 slacking during the competition.

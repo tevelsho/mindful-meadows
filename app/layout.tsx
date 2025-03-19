@@ -6,6 +6,7 @@ import { Sidebar } from "@/app/components/layout/Sidebar";
 import { ProgressBar } from "@/app/components/layout/Progressbar";
 import { Volume } from "@/app/components/Volume";
 import { DailyStreak } from "@/app/components/DailyStreak";
+import Mascot from "./components/ui/Mascot";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

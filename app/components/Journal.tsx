@@ -323,13 +323,18 @@ export default function Journal() {
                           : 0}
                       </span>
                     </p>
-
                     <p className="font-normal text-sm mt-8 text-gray-600">
                       Voice out how you feel instead!
                     </p>
-
                     {/* Audio Recorder */}
                     <AudioRecords />
+                    <input
+                      type="file"
+                      id="myFile"
+                      name="filename"
+                      placeholder="Input Recorded Audio File"
+                      className="font-sans"
+                    ></input>
 
                     <div className="absolute bottom-6 right-6">
                       <button
