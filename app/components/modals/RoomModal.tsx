@@ -3,8 +3,13 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 // three js
 import { Canvas, useLoader } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
+import { OrbitControls, useGLTF } from "@react-three/drei";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
+
+function Bear() {
+  const { scene } = useGLTF("/models/teddybear.glb");
+  return <primitive object={scene.clone()} scale={[0.01, 0.01, 0.01]} />;
+}
 
 export default function RoomModal({
   isOpen,
@@ -21,7 +26,6 @@ export default function RoomModal({
 
   // message
   const [message, setMessage] = useState("");
-  const teddyBearThumb = useLoader(GLTFLoader, "/models/teddybear.glb");
 
   useEffect(() => {
     fetch("dataset/message.json")
@@ -136,10 +140,7 @@ export default function RoomModal({
                 <pointLight position={[-5, 5, 5]} intensity={4} />
                 <pointLight position={[5, 5, -5]} intensity={4} />
 
-                <primitive
-                  object={teddyBearThumb.scene.clone()}
-                  scale={[0.01, 0.01, 0.01]}
-                />
+                <Bear />
                 <OrbitControls />
               </Canvas>
             </div>
